@@ -78,10 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="NugetFiles\install.ps1" />
-    <None Include="NugetFiles\MassTransit..Host.RabbitMQ.exe.config.transform" />
+    <None Include="NugetFiles\MassTransit.Host.RabbitMQ.exe.config.transform" />
     <None Include="packages.config" />
     <None Include="MassTransit.Host.RabbitMQ.nuspec" />
-    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
@@ -91,6 +90,21 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>rmdir /S /Q "$(TargetDir)nuget"
+IF NOT EXIST "$(TargetDir)nuget" mkdir "$(TargetDir)nuget"
+IF NOT EXIST "$(TargetDir)nuget\lib" mkdir "$(TargetDir)nuget\lib"
+IF NOT EXIST "$(TargetDir)nuget\content" mkdir "$(TargetDir)nuget\content"
+IF NOT EXIST "$(TargetDir)nuget\tools" mkdir "$(TargetDir)nuget\tools"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y "$(ProjectDir)MassTransit.Host.RabbitMQ.nuspec"  "$(TargetDir)nuget"
+xcopy /y "$(ProjectDir)NugetFiles\*.transform"  "$(TargetDir)nuget\content"
+xcopy /y "$(ProjectDir)NugetFiles\*.ps1" "$(TargetDir)\nuget\tools"
+xcopy /y "$(SolutionDir).nuget\nuget.exe" "$(TargetDir)nuget"
+cd "$(TargetDir)nuget"
+nuget pack MassTransit.Host.RabbitMQ.nuspec -Prop Configuration=$(ConfigurationName) -Verbosity detailed</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
