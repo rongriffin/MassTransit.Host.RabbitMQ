@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>MassTransit.Host.RabbitMQ</id>
-		<version>1.0.0.1</version>
+		<version>1.0.0.3-alpha</version>
 		<title>MassTransit Consumer Host for RabbitMQ endpoints</title>
 		<authors>Ron Griffin</authors>
 		<owners>rongriffin@gmail.com</owners>
@@ -14,8 +14,8 @@
 		<copyright>Copyright 2014</copyright>
 		<tags>MassTransit host RabbitMQ</tags>
 		<dependencies>			
-			<dependency id="Castle.Core" version="[3.2.2,4.0.0)"/>
-			<dependency id="Castle.Windsor" version="[3.2.1,4.0.0)"/>
+			<dependency id="Castle.Core" version="[3.3.0,4.0.0)"/>
+			<dependency id="Castle.Windsor" version="[3.3.0,4.0.0)"/>
 			<dependency id="Magnum" version="[2.1.2,3.0.0)"/>
 			<dependency id="MassTransit" version="[2.9.5,3.0.0)"/>
 			<dependency id="MassTransit.CastleWindsor" version="[2.9.5,3.0.0)" />
