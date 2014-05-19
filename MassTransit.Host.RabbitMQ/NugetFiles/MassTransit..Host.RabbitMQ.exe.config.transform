@@ -1,0 +1,9 @@
+﻿<configuration>
+	<configSections>
+		<section name="massTransitServiceBusConfig" type="System.Configuration.NameValueSectionHandler"/>
+	</configSections>
+	<massTransitServiceBusConfig>
+		<!--configure the endpoint address to the RabbitMQ address to use for messaging (e.g. rabbitmq://localhost/myqueue) -->
+		<add key="endpointAddress" value="rabbitmq://RABBITMQ_SERVER/RABBITMQ_ENDPOINT_QUEUE" />
+	</massTransitServiceBusConfig>
+</configuration>
