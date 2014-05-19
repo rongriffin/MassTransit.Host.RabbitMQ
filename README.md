@@ -19,3 +19,9 @@ A service host process for MassTransit consumer services using RabbitMQ for tran
 3. Open a command prompt on the server and navigate to the folder you copied.
 4. From the command prompt, run *MassTransit.Host.RabbitMQ.exe -username "myUser" -password "myPassword" --delayed -servciename "MyMassTransitConsumerService" -description "My service description" -displayname "My MassTransit Consumer Service"*	
 	- NOTE: For more command line options, review the TopShelf command line reference: [http://topshelf.readthedocs.org/en/latest/overview/commandline.html](http://topshelf.readthedocs.org/en/latest/overview/commandline.html)
+
+See Also:
+
+Mass Transit - [http://masstransit-project.com/](http://masstransit-project.com/)
+
+Topshelf - [http://topshelf-project.com/](http://topshelf-project.com/)
