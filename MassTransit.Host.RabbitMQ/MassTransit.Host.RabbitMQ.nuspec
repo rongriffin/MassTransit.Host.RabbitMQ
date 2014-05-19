@@ -2,14 +2,15 @@
 <package >
 	<metadata>
 		<id>MassTransit.Host.RabbitMQ</id>
-		<version>1.0.0.0</version>
-		<title>MassTransit service host for RabbitMQ endopoints</title>
+		<version>1.0.0.1</version>
+		<title>MassTransit Consumer Host for RabbitMQ endpoints</title>
 		<authors>Ron Griffin</authors>
 		<owners>rongriffin@gmail.com</owners>
+		<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Service Bus Host for Mass Transit services using RabbitMQ</description>
 		<releaseNotes>initial version</releaseNotes>
-		<projectUrl>http://github.com/rongriffin/MassTransit.Host.RabbitMQ</projectUrl>
+		<projectUrl>https://github.com/rongriffin/MassTransit.Host.RabbitMQ</projectUrl>
 		<copyright>Copyright 2014</copyright>
 		<tags>MassTransit host RabbitMQ</tags>
 		<dependencies>			
