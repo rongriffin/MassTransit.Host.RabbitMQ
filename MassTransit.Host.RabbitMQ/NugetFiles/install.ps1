@@ -39,7 +39,7 @@ function Add-HostConfigToOutputDirectory {
 	$copyToOutput1 = $configFile.Properties.Item("CopyToOutputDirectory")
 	$copyToOutput1.Value = 1
 }
-
+$project.Save()
 Add-HostConfigToOutputDirectory
 $project.Save()
 Write-Host "Adding startup project..." -BackgroundColor yellow -foregroundcolor black

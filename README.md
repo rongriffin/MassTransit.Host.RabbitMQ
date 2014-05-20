@@ -1,4 +1,4 @@
-# MassTransit.Host.RabbitMQ #
+﻿# MassTransit.Host.RabbitMQ #
 
 A service host process for MassTransit consumer services using RabbitMQ for transport.
 
@@ -7,8 +7,8 @@ A service host process for MassTransit consumer services using RabbitMQ for tran
 **Usage:**
 
 1. Create a new Visual Studio class library (.NET 4.5 or later).
-2. Create MassTransit consumers that implement Consumes<T> (see: [http://masstransit.readthedocs.org/en/latest/learning/firstConsumer.html](http://masstransit.readthedocs.org/en/latest/learning/firstConsumer.html))
-3. Install **MassTransit.Host.RabbitMQ** from NuGet (Install-Package MassTransit.Host.RabbitMQ)
+2. Install **MassTransit.Host.RabbitMQ** from NuGet (Install-Package MassTransit.Host.RabbitMQ)
+3. Create MassTransit consumers that implement Consumes<T> (see: [http://masstransit.readthedocs.org/en/latest/learning/firstConsumer.html](http://masstransit.readthedocs.org/en/latest/learning/firstConsumer.html))
 4. Update *MassTransit.Host.RabbitMQ.exe.config* in your project to configure your RabbitMQ endpoint.
 5. Run!
 
