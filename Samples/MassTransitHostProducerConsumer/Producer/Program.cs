@@ -29,7 +29,7 @@ namespace Producer
 				Console.WriteLine("Press enter to send a message...");
 				Console.ReadLine();
 
-				Bus.Publish<MyMessage>(new MyMessage()
+				Bus.Publish(new MyMessage
 				{
 					Timestamp = DateTime.Now,
 					Message = "Message from producer"
