@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MassTransit.WindsorIntegration</name>
+    </assembly>
+    <members>
+        <member name="M:MassTransit.WindsorIntegration.MessageScope.BeginScope">
+            <summary>
+            Called by the WindsorInboundIntercepter to begin the container scope
+            </summary>
+        </member>
+        <member name="M:MassTransit.WindsorIntegration.MessageScope.EndScope">
+            <summary>
+            Called by the WindsorInboundIntercepter to end the container scope
+            </summary>
+        </member>
+        <member name="T:MassTransit.WindsorIntegration.WindsorInboundInterceptor">
+            <summary>
+            Calls by the inbound message pipeline to begin and end a message scope
+            in the container.
+            </summary>
+        </member>
+        <member name="T:MassTransit.WindsorContainerExtensions">
+            <summary>
+            Extension methods for the Windsor IoC container.
+            </summary>
+        </member>
+        <member name="M:MassTransit.WindsorContainerExtensions.LoadFrom(MassTransit.SubscriptionConfigurators.SubscriptionBusServiceConfigurator,Castle.Windsor.IWindsorContainer)">
+            <summary>
+            Specify that the service bus should load its subscribers from the container passed as an argument.
+            </summary>
+            <param name="configurator">The configurator the extension method works on.</param>
+            <param name="container">The Windsor container.</param>
+        </member>
+        <member name="M:MassTransit.WindsorContainerExtensions.Consumer``1(MassTransit.SubscriptionConfigurators.SubscriptionBusServiceConfigurator,Castle.Windsor.IWindsorContainer)">
+            <summary>
+            Register the type as a type to load from the container as a consumer.
+            </summary>
+            <typeparam name="TConsumer">The type of the consumer that consumes messages</typeparam>
+            <param name="configurator">configurator</param>
+            <param name="container">The container that the consumer should be loaded from.</param>
+            <returns>The configurator</returns>
+        </member>
+        <member name="M:MassTransit.WindsorContainerExtensions.Saga``1(MassTransit.SubscriptionConfigurators.SubscriptionBusServiceConfigurator,Castle.Windsor.IWindsorContainer)">
+            <summary>
+            Load the saga of the generic type from the windsor container,
+            by loading it directly from the container.
+            </summary>
+            <typeparam name="TSaga">The type of the saga</typeparam>
+            <param name="configurator">The configurator</param>
+            <param name="container">The windsor container</param>
+            <returns>The configurator</returns>
+        </member>
+        <member name="M:MassTransit.WindsorContainerExtensions.EnableMessageScope(MassTransit.BusConfigurators.ServiceBusConfigurator)">
+            <summary>
+            Enable the begin/end of a MessageScope for use with the container
+            </summary>
+            <param name="configurator"></param>
+        </member>
+    </members>
+</doc>
