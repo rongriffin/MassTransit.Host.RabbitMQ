@@ -1,4 +1,17 @@
-﻿using Castle.MicroKernel.Registration;
+﻿// Copyright 2014 Ron Griffin, ...
+//  
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
+// this file except in compliance with the License. You may obtain a copy of the 
+// License at 
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0 
+// 
+// Unless required by applicable law or agreed to in writing, software distributed 
+// under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
+// CONDITIONS OF ANY KIND, either express or implied. See the License for the 
+// specific language governing permissions and limitations under the License.
+
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using MassTransit;
@@ -8,13 +21,14 @@ using System.Reflection;
 
 namespace MassTransit.Host.RabbitMQ
 {
+	/// <summary>
+	/// The Service Host creates and configures and instance of the bus and registers any consumers found
+	/// as subscribers to the bus.
+	/// </summary>
 	internal class ServiceHost
 	{
 		private IServiceBus _bus;
 
-		/// <summary>
-		/// The directory this program is executing from.
-		/// </summary>
 		public static string AssemblyDirectory
 		{
 			get
@@ -26,9 +40,6 @@ namespace MassTransit.Host.RabbitMQ
 			}
 		}
 
-		/// <summary>
-		/// Code the executes when the service host should start
-		/// </summary>
 		public void Start()
 		{
 			try
@@ -47,23 +58,16 @@ namespace MassTransit.Host.RabbitMQ
 			}
 			catch (Exception e)
 			{
-				// need something better here
+				// Need something better here.  NLog maybe?
 				Console.Write(e.ToString());
 			}
 		}
 
-		/// <summary>
-		/// Code that executes when the service shuts down.
-		/// </summary>
 		public void Stop()
 		{
 			_bus.Dispose();
 		}
 
-		/// <summary>
-		/// Load the MassTransit handlers into the container.
-		/// </summary>
-		/// <param name="container">The Windsor type container to add types to.</param>
 		private static void RegisterTypes(IWindsorContainer container)
 		{
 			container
