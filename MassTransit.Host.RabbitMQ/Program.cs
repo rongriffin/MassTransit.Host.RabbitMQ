@@ -33,7 +33,7 @@ namespace MassTransit.Host.RabbitMQ
 				x.RunAsLocalSystem();
 				
 				x.SetDescription("MassTransit RabbitMQ Service Bus Host");
-				x.SetDisplayName("MassTranitServiceBusHost");
+				x.SetDisplayName("MassTransitServiceBusHost");
 				x.SetServiceName("MassTransitServiceBusHost");
 			});
 			 
