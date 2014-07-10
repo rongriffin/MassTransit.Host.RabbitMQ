@@ -22,6 +22,8 @@ namespace MassTransit.Host.RabbitMQ
 	internal class ServiceBusConfig
 	{
 		public string EndpointAddress { get; set; }
+		public string RabbitMqUserName { get; set; }
+		public string RabbitMqPassword { get; set; }
 
 		public static ServiceBusConfig LoadFromConfig()
 		{
@@ -30,12 +32,31 @@ namespace MassTransit.Host.RabbitMQ
 			{
 				throw new ConfigurationErrorsException("massTransitServiceBusConfig section is missing");
 			}
+
 			var endpointAddress = configSection["endpointAddress"];
 			if (string.IsNullOrWhiteSpace(endpointAddress))
 			{
 				throw new ConfigurationErrorsException("massTransitServiceBusConfig.endpoint setting is missing");
 			}
-			return new ServiceBusConfig { EndpointAddress = endpointAddress };
+
+			var rabbitMqUserName = configSection["rabbitMqUserName"];
+			if (string.IsNullOrWhiteSpace(rabbitMqUserName))
+			{
+				throw new ConfigurationErrorsException("massTransitServiceBusConfig.rabbitMqUserName setting is missing");
+			}
+
+			var rabbitMqPassword = configSection["rabbitMqPassword"];
+			if (string.IsNullOrWhiteSpace(rabbitMqPassword))
+			{
+				throw new ConfigurationErrorsException("massTransitServiceBusConfig.rabbitMqPassword setting is missing");
+			}
+
+			return new ServiceBusConfig
+			{
+				EndpointAddress = endpointAddress,
+				RabbitMqUserName = rabbitMqUserName,
+				RabbitMqPassword = rabbitMqPassword
+			};
 		}
 	}
 }

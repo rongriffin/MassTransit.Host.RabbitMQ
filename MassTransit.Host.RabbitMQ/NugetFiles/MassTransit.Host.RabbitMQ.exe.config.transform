@@ -5,5 +5,7 @@
 	<massTransitServiceBusConfig>
 		<!--configure the endpoint address to the RabbitMQ address to use for messaging (e.g. rabbitmq://localhost/myqueue) -->
 		<add key="endpointAddress" value="rabbitmq://RABBITMQ_SERVER/RABBITMQ_ENDPOINT_QUEUE" />
+		<add key="rabbitMqUserName" value="guest"/>
+		<add key="rabbitMqPassword" value="guest"/>
 	</massTransitServiceBusConfig>
 </configuration>

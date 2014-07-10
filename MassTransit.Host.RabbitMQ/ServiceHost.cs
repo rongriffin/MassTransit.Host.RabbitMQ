@@ -51,7 +51,12 @@ namespace MassTransit.Host.RabbitMQ
 
 				_bus = ServiceBusFactory.New(sbc =>
 				{
-					sbc.UseRabbitMq();
+					sbc.UseRabbitMq(r => r.ConfigureHost(new Uri(busConfig.EndpointAddress), h =>
+						{
+							h.SetUsername(busConfig.RabbitMqUserName);
+							h.SetPassword(busConfig.RabbitMqPassword);
+						})
+					);
 					sbc.ReceiveFrom(busConfig.EndpointAddress);
 					sbc.Subscribe(x => x.LoadFrom(container));
 				});
