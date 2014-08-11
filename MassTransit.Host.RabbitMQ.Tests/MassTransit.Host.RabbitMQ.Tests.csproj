@@ -52,12 +52,16 @@
   <ItemGroup>
     <Compile Include="RabbitMqConnectionStringParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceBusConfigTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MassTransit.Host.RabbitMQ\MassTransit.Host.RabbitMQ.csproj">
       <Project>{ee1d72dd-38b4-4580-b0de-9361a21c1da7}</Project>
       <Name>MassTransit.Host.RabbitMQ</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
