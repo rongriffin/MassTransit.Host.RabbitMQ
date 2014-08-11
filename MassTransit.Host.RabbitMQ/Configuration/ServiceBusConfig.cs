@@ -11,10 +11,11 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
 using System.Collections.Specialized;
 using System.Configuration;
 
-namespace MassTransit.Host.RabbitMQ
+namespace MassTransit.Host.RabbitMQ.Configuration
 {
 	/// <summary>
 	/// Loads the bus configuration data from the .config file.
@@ -27,36 +28,33 @@ namespace MassTransit.Host.RabbitMQ
 
 		public static ServiceBusConfig LoadFromConfig()
 		{
-			var configSection = ConfigurationManager.GetSection("massTransitServiceBusConfig") as NameValueCollection;
-			if (configSection == null)
+			var connectionStringSetting = ConfigurationManager.ConnectionStrings["Host.RabbitMQConnection"];
+			if (connectionStringSetting == null)
 			{
-				throw new ConfigurationErrorsException("massTransitServiceBusConfig section is missing");
+				throw new Exception("Connection string named Host.RabbitMQConnection not found");
 			}
 
-			var endpointAddress = configSection["endpointAddress"];
+			var config = RabbitMqConnectionStringParser.Parse(connectionStringSetting.ConnectionString);
+
+			var endpointAddress = config.EndpointAddress;
 			if (string.IsNullOrWhiteSpace(endpointAddress))
 			{
-				throw new ConfigurationErrorsException("massTransitServiceBusConfig.endpoint setting is missing");
+				throw new ConfigurationErrorsException("RabbitMQ endpoint setting is missing from Host.RabbitMQConnection connection string");
 			}
 
-			var rabbitMqUserName = configSection["rabbitMqUserName"];
+			var rabbitMqUserName = config.RabbitMqUserName;
 			if (string.IsNullOrWhiteSpace(rabbitMqUserName))
 			{
-				throw new ConfigurationErrorsException("massTransitServiceBusConfig.rabbitMqUserName setting is missing");
+				throw new ConfigurationErrorsException("RabbitMQ userId setting is missing from Host.RabbitMQConnection connection string");
 			}
 
-			var rabbitMqPassword = configSection["rabbitMqPassword"];
+			var rabbitMqPassword = config.RabbitMqPassword;
 			if (string.IsNullOrWhiteSpace(rabbitMqPassword))
 			{
-				throw new ConfigurationErrorsException("massTransitServiceBusConfig.rabbitMqPassword setting is missing");
+				throw new ConfigurationErrorsException("RabbitMQ password setting is missing from Host.RabbitMQConnection connection string");
 			}
 
-			return new ServiceBusConfig
-			{
-				EndpointAddress = endpointAddress,
-				RabbitMqUserName = rabbitMqUserName,
-				RabbitMqPassword = rabbitMqPassword
-			};
+			return config;
 		}
 	}
 }

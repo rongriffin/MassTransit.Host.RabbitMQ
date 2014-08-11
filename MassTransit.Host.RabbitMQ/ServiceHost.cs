@@ -18,6 +18,7 @@ using MassTransit;
 using System;
 using System.IO;
 using System.Reflection;
+using MassTransit.Host.RabbitMQ.Configuration;
 
 namespace MassTransit.Host.RabbitMQ
 {
