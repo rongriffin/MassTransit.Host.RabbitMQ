@@ -61,6 +61,9 @@
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.2.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll</HintPath>
@@ -87,7 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="NugetFiles\install.ps1" />
-    <None Include="NugetFiles\MassTransit.Host.RabbitMQ.exe.config.transform" />
+    <None Include="NugetFiles\MassTransit.Host.RabbitMQ.exe.config.transform">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="MassTransit.Host.RabbitMQ.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>

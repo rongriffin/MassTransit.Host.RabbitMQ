@@ -12,6 +12,30 @@ A service host process for MassTransit consumer services using RabbitMQ for tran
 4. Update *MassTransit.Host.RabbitMQ.exe.config* in your project to configure your RabbitMQ endpoint address and credentials.
 5. Run!
 
+**Enable Logging:**
+
+The host uses NLog for error logging and for logging diagnostics (e.g. Listing the subscribers that the host loaded).  To configure logging, install Nlog.Config from [https://www.nuget.org/packages/NLog.Config/](https://www.nuget.org/packages/NLog.Config/ "NuGet") and configure your logging provider.  
+
+For example, to log output to the Console, edit NLog.config as follows:
+
+	<?xml version="1.0" encoding="utf-8" ?>
+	<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	  <!-- 
+	  See https://github.com/nlog/nlog/wiki/Configuration-file 
+	  for information on customizing logging rules and outputs.
+	   -->
+	  <targets>
+	    <!-- add your targets here -->
+	    <target xsi:type="Console" name="c" 
+	            layout="${longdate} ${uppercase:${level}} ${message}" />
+	  </targets>
+	  <rules>
+	    <!-- add your logging rules here -->
+	    <logger name="*" minlevel="Trace" writeTo="c" />
+	  </rules>
+	</nlog>
+
 **To Install as a Windows Service:**
 
 1. Build your project.

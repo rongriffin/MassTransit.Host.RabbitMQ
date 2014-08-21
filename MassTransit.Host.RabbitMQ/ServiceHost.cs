@@ -11,14 +11,17 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using Castle.Core.Logging;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using Magnum.Extensions;
 using MassTransit;
 using System;
 using System.IO;
 using System.Reflection;
 using MassTransit.Host.RabbitMQ.Configuration;
+using NLog;
 
 namespace MassTransit.Host.RabbitMQ
 {
@@ -29,15 +32,18 @@ namespace MassTransit.Host.RabbitMQ
 	internal class ServiceHost
 	{
 		private IServiceBus _bus;
+		private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-		public static string AssemblyDirectory
+		internal static string AssemblyDirectory
 		{
 			get
 			{
 				var codeBase = Assembly.GetExecutingAssembly().CodeBase;
 				var uri = new UriBuilder(codeBase);
 				var path = Uri.UnescapeDataString(uri.Path);
-				return Path.GetDirectoryName(path);
+				var assemblyDir = Path.GetDirectoryName(path);
+				logger.Trace("Loading subscribers from path " + assemblyDir);
+				return assemblyDir;
 			}
 		}
 
@@ -49,7 +55,8 @@ namespace MassTransit.Host.RabbitMQ
 
 				var container = new WindsorContainer().Install(FromAssembly.This());
 				RegisterTypes(container);
-
+				
+				logger.Trace(string.Format("Connecting to RabbitMQ at endpoint {0}", busConfig.EndpointAddress));
 				_bus = ServiceBusFactory.New(sbc =>
 				{
 					sbc.UseRabbitMq(r => r.ConfigureHost(new Uri(busConfig.EndpointAddress), h =>
@@ -64,8 +71,7 @@ namespace MassTransit.Host.RabbitMQ
 			}
 			catch (Exception e)
 			{
-				// Need something better here.  NLog maybe?
-				Console.Write(e.ToString());
+				logger.Error(e.ToString);
 			}
 		}
 
@@ -74,14 +80,29 @@ namespace MassTransit.Host.RabbitMQ
 			_bus.Dispose();
 		}
 
-		private static void RegisterTypes(IWindsorContainer container)
+		internal static void RegisterTypes(IWindsorContainer container)
 		{
 			container
 				.Register(Types
 					.FromAssemblyInDirectory(new AssemblyFilter(AssemblyDirectory))
 				//	.IncludeNonPublicTypes()
-					.BasedOn<IConsumer>()
+					.BasedOn<IConsumer>()	
 					.Unless(t => t.Namespace != null && t.Namespace.StartsWith("MassTransit", StringComparison.OrdinalIgnoreCase)));
+
+			LogRegisteredSubscribers(container);
+			
+		}
+
+		internal static void LogRegisteredSubscribers(IWindsorContainer container)
+		{
+			if (container == null) return;
+
+			foreach (var handler in container.Kernel.GetAssignableHandlers(typeof(object)))
+			{
+				logger.Trace(string.Format("Loaded subscriber {0} {1}",
+					handler.ComponentModel.ComponentName.Name,
+					handler.ComponentModel.Implementation));
+			}
 		}
 	}
 }
