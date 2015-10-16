@@ -11,16 +11,12 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using Castle.Core.Logging;
+using System;
+using System.IO;
+using System.Reflection;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
-using Magnum.Extensions;
-using MassTransit;
-using System;
-using System.Diagnostics.Eventing.Reader;
-using System.IO;
-using System.Reflection;
 using MassTransit.Host.RabbitMQ.Configuration;
 using NLog;
 
