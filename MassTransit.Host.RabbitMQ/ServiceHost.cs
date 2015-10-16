@@ -18,6 +18,7 @@ using Castle.Windsor.Installer;
 using Magnum.Extensions;
 using MassTransit;
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Reflection;
 using MassTransit.Host.RabbitMQ.Configuration;
@@ -77,7 +78,7 @@ namespace MassTransit.Host.RabbitMQ
 
 		public void Stop()
 		{
-			_bus.Dispose();
+			if (_bus != null) _bus.Dispose();
 		}
 
 		internal static void RegisterTypes(IWindsorContainer container)
