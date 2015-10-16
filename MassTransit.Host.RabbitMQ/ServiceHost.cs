@@ -73,6 +73,7 @@ namespace MassTransit.Host.RabbitMQ
 			catch (Exception e)
 			{
 				logger.Error(e.ToString);
+				throw;
 			}
 		}
 
