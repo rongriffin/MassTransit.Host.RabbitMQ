@@ -11,15 +11,12 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using Castle.Core.Logging;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
-using Castle.Windsor.Installer;
-using Magnum.Extensions;
-using MassTransit;
 using System;
 using System.IO;
 using System.Reflection;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using Castle.Windsor.Installer;
 using MassTransit.Host.RabbitMQ.Configuration;
 using NLog;
 
@@ -72,12 +69,13 @@ namespace MassTransit.Host.RabbitMQ
 			catch (Exception e)
 			{
 				logger.Error(e.ToString);
+				throw;
 			}
 		}
 
 		public void Stop()
 		{
-			_bus.Dispose();
+			if (_bus != null) _bus.Dispose();
 		}
 
 		internal static void RegisterTypes(IWindsorContainer container)
