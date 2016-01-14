@@ -2,14 +2,14 @@
 <package >
 	<metadata>
 		<id>MassTransit.Host.RabbitMQ</id>
-		<version>1.6.0</version>
+		<version>1.7.0</version>
 		<title>MassTransit.Host.RabbitMQ</title>
 		<authors>Ron Griffin</authors>
 		<owners>rongriffin@gmail.com</owners>
 		<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Service Bus Host for Mass Transit services using RabbitMQ</description>
-		<releaseNotes>Adding durability to startup and shutdown in the event that the connection to RabbitMQ has errors.</releaseNotes>
+		<releaseNotes>Adding exit code to play nice with batch install</releaseNotes>
 		<projectUrl>https://github.com/rongriffin/MassTransit.Host.RabbitMQ</projectUrl>
 		<copyright>Copyright 2014</copyright>
 		<tags>MassTransit host RabbitMQ</tags>
