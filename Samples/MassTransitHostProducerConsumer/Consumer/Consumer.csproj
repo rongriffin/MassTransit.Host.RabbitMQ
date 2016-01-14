@@ -48,8 +48,9 @@
     <Reference Include="MassTransit">
       <HintPath>..\packages\MassTransit.2.9.5\lib\net40\MassTransit.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit.Host.RabbitMQ">
-      <HintPath>..\packages\MassTransit.Host.RabbitMQ.1.6.0\lib\net45\MassTransit.Host.RabbitMQ.exe</HintPath>
+    <Reference Include="MassTransit.Host.RabbitMQ, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MassTransit.Host.RabbitMQ.1.7.0\lib\net45\MassTransit.Host.RabbitMQ.exe</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MassTransit.Transports.RabbitMq">
       <HintPath>..\packages\MassTransit.RabbitMQ.2.9.5\lib\net40\MassTransit.Transports.RabbitMq.dll</HintPath>
