@@ -11,6 +11,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
 using Topshelf;
 
 namespace MassTransit.Host.RabbitMQ
@@ -22,7 +23,7 @@ namespace MassTransit.Host.RabbitMQ
 	{
 		static void Main(string[] args)
 		{
-			HostFactory.Run(x =>
+			var exitCode = HostFactory.Run(x =>
 			{
 				x.Service<ServiceHost>(s =>
 				{
@@ -36,10 +37,9 @@ namespace MassTransit.Host.RabbitMQ
 				x.SetDisplayName("MassTransitServiceBusHost");
 				x.SetServiceName("MassTransitServiceBusHost");
 			});
-			 
-
 			//TODO: extra parameter stuff 
 
+			Environment.Exit((int)exitCode);
 		}
 	}
 }
