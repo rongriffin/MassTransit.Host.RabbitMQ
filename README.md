@@ -1,6 +1,6 @@
 # MassTransit.Host.RabbitMQ #
 
-A service host process for MassTransit consumer services using RabbitMQ for transport.
+A service host process for MassTransit consumer services using RabbitMQ for transport.  **Currently not compatible with MassTransit 3.0 and later**
 
 **Apache License, Version 2.0:** [http://www.apache.org/licenses/LICENSE-2.0.html](http://www.apache.org/licenses/LICENSE-2.0.html)
 
