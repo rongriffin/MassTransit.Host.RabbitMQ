@@ -28,7 +28,7 @@ namespace MassTransit.Host.RabbitMQ
 	/// </summary>
 	internal class ServiceHost
 	{
-		private IServiceBus _bus;
+		private IBusControl _bus;
 		private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 		internal static string AssemblyDirectory
@@ -52,19 +52,28 @@ namespace MassTransit.Host.RabbitMQ
 
 				var container = new WindsorContainer().Install(FromAssembly.This());
 				RegisterTypes(container);
-				
+
 				logger.Trace(string.Format("Connecting to RabbitMQ at endpoint {0}", busConfig.EndpointAddress));
-				_bus = ServiceBusFactory.New(sbc =>
+				_bus = Bus.Factory.CreateUsingRabbitMq(busControl =>
 				{
-					sbc.UseRabbitMq(r => r.ConfigureHost(new Uri(busConfig.EndpointAddress), h =>
-						{
-							h.SetUsername(busConfig.RabbitMqUserName);
-							h.SetPassword(busConfig.RabbitMqPassword);
-						})
-					);
-					sbc.ReceiveFrom(busConfig.EndpointAddress);
-					sbc.Subscribe(x => x.LoadFrom(container));
+					var host = busControl.Host(new Uri(busConfig.EndpointAddress), h =>
+					{
+						h.Username(busConfig.RabbitMqUserName);
+						h.Password(busConfig.RabbitMqPassword);
+					});
+
+					// If queue name isn't specified, an auto-delete queue will be created
+					if (string.IsNullOrEmpty(busConfig.QueueName))
+					{
+						busControl.ReceiveEndpoint(host, x => x.LoadFrom(container));
+					}
+					else
+					{
+						busControl.ReceiveEndpoint(host, busConfig.QueueName, x => x.LoadFrom(container));
+					}
 				});
+
+				_bus.Start();
 			}
 			catch (Exception e)
 			{
@@ -75,7 +84,7 @@ namespace MassTransit.Host.RabbitMQ
 
 		public void Stop()
 		{
-			if (_bus != null) _bus.Dispose();
+			if (_bus != null) _bus.Stop();
 		}
 
 		internal static void RegisterTypes(IWindsorContainer container)
@@ -83,12 +92,12 @@ namespace MassTransit.Host.RabbitMQ
 			container
 				.Register(Types
 					.FromAssemblyInDirectory(new AssemblyFilter(AssemblyDirectory))
-				//	.IncludeNonPublicTypes()
-					.BasedOn<IConsumer>()	
+					//	.IncludeNonPublicTypes()
+					.BasedOn<IConsumer>()
 					.Unless(t => t.Namespace != null && t.Namespace.StartsWith("MassTransit", StringComparison.OrdinalIgnoreCase)));
 
 			LogRegisteredSubscribers(container);
-			
+
 		}
 
 		internal static void LogRegisteredSubscribers(IWindsorContainer container)

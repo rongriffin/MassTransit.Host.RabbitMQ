@@ -23,6 +23,7 @@ namespace MassTransit.Host.RabbitMQ.Configuration
 	internal class ServiceBusConfig
 	{
 		public string EndpointAddress { get; set; }
+		public string QueueName { get; set; }
 		public string RabbitMqUserName { get; set; }
 		public string RabbitMqPassword { get; set; }
 
