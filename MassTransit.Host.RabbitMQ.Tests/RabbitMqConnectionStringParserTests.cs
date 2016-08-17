@@ -9,7 +9,7 @@ namespace MassTransit.Host.RabbitMQ.Tests
 	[TestClass]
 	public class RabbitMqConnectionStringParserTests
 	{
-		private const string ConectionStringFormat = "endpoint={0}; userid={1}; password={2};something=";
+		private const string ConectionStringFormat = "endpoint={0}; userid={1}; password={2}; queueName={3};something=";
 
 		/// <summary>
 		/// Test a well-formed connection string
@@ -20,13 +20,15 @@ namespace MassTransit.Host.RabbitMQ.Tests
 			const string endpoint = "rabbitmq://test/test";
 			const string userid = "testUser";
 			const string password = "testPassw0rd1";
-			var connectionString = string.Format(ConectionStringFormat, endpoint, userid, password);
+			const string queueName = "testQueueName";
+			var connectionString = string.Format(ConectionStringFormat, endpoint, userid, password, queueName);
 			var result = RabbitMqConnectionStringParser.Parse(connectionString);
 
 			Assert.IsNotNull(result);
 			Assert.AreEqual(endpoint, result.EndpointAddress);
 			Assert.AreEqual(userid, result.RabbitMqUserName);
 			Assert.AreEqual(password, result.RabbitMqPassword);
+			Assert.AreEqual(queueName, result.QueueName);
 		}
 
 		/// <summary>
@@ -38,13 +40,15 @@ namespace MassTransit.Host.RabbitMQ.Tests
 			const string endpoint = "rabbitmq://test/test";
 			const string userid = "test=User";
 			const string password = "test=Passw0rd=1";
-			var connectionString = string.Format(ConectionStringFormat, endpoint, userid, password);
+			const string queueName = "queuName";
+			var connectionString = string.Format(ConectionStringFormat, endpoint, userid, password, queueName);
 			var result = RabbitMqConnectionStringParser.Parse(connectionString);
 
 			Assert.IsNotNull(result);
 			Assert.AreEqual(endpoint, result.EndpointAddress);
 			Assert.AreEqual(userid, result.RabbitMqUserName);
 			Assert.AreEqual(password, result.RabbitMqPassword);
+			Assert.AreEqual(queueName, result.QueueName);
 		}
 
 		/// <summary>
@@ -71,17 +75,19 @@ namespace MassTransit.Host.RabbitMQ.Tests
 		[TestMethod]
 		public void RabbitMqConnectionStringParserReturnsWhenValuesAreMissing()
 		{
-			const string badConectionStringFormat = "badendpoint={0}; baduserid={1}; badpassword={2}";
+			const string badConectionStringFormat = "badendpoint={0}; baduserid={1}; badpassword={2}; badqueuename={3}";
 			const string endpoint = "rabbitmq://test/test";
 			const string userid = "testUser";
 			const string password = "testPassw0rd1";
-			var connectionString = string.Format(badConectionStringFormat, endpoint, userid, password);
+			const string queueName = "queuename";
+			var connectionString = string.Format(badConectionStringFormat, endpoint, userid, password, queueName);
 			var result = RabbitMqConnectionStringParser.Parse(connectionString);
 
 			Assert.IsNotNull(result);
 			Assert.IsNull(result.EndpointAddress);
 			Assert.IsNull(result.RabbitMqUserName);
 			Assert.IsNull(result.RabbitMqPassword);
+			Assert.IsNull(result.QueueName);
 		}
 	}
 }

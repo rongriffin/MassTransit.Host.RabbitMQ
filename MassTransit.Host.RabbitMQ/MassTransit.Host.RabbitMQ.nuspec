@@ -9,7 +9,7 @@
 		<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Service Bus Host for Mass Transit services using RabbitMQ</description>
-		<releaseNotes>Updating to MassTransit 3 and upgrading all other dependencies</releaseNotes>
+		<releaseNotes>Updating to MassTransit 3 and upgrading all other dependencies pull request from adback03.</releaseNotes>
 		<projectUrl>https://github.com/rongriffin/MassTransit.Host.RabbitMQ</projectUrl>
 		<copyright>Copyright 2014</copyright>
 		<tags>MassTransit host RabbitMQ</tags>
