@@ -23,6 +23,6 @@ using System.Runtime.InteropServices;
 [assembly: Guid("38930c99-a648-4e8c-a855-5239796d2dd2")]
 
 
-[assembly: AssemblyVersion("1.5.0.0")]
-[assembly: AssemblyFileVersion("1.5.0.0")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.0.0")]
 [assembly: InternalsVisibleTo("MassTransit.Host.RabbitMQ.Tests")]

@@ -12,7 +12,6 @@
 // specific language governing permissions and limitations under the License.
 
 using MassTransit;
-using MassTransit.Advanced;
 using Messaging;
 using System;
 
@@ -26,15 +25,18 @@ namespace Producer
 		/// <summary>
 		/// intialized the bus to use rabbitmq.
 		/// </summary>
-		private static readonly IServiceBus Bus =
-			ServiceBusFactory.New(sbc =>
+		private static readonly IBusControl Bus =
+			MassTransit.Bus.Factory.CreateUsingRabbitMq(sbc =>
 			{
-				sbc.UseRabbitMq();
-				sbc.UseJsonSerializer();
-				sbc.SetConcurrentReceiverLimit(Environment.ProcessorCount * 2);
-				sbc.ReceiveFrom("rabbitmq://localhost/HostProducer"); 
+				
+				sbc.Host(new Uri("rabbitmq://localhost"), hostConfigurator =>
+				{
+					hostConfigurator.Username("guest");
+					hostConfigurator.Password("guest");
+					hostConfigurator.Heartbeat(10);
+				});
 			});
-
+			
 		static void Main()
 		{
 			while (true)
