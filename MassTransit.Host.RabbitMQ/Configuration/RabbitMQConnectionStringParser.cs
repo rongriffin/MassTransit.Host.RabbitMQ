@@ -48,6 +48,9 @@ namespace MassTransit.Host.RabbitMQ.Configuration
 				case "endpoint" :
 					config.EndpointAddress = settingValue;
 					break;
+				case "queuename":
+					config.QueueName = settingValue;
+					break;
 				case "userid" :
 					config.RabbitMqUserName = settingValue;
 					break;

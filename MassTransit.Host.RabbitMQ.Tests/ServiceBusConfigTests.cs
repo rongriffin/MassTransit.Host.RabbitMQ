@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using MassTransit.Host.RabbitMQ.Configuration;
+﻿using MassTransit.Host.RabbitMQ.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MassTransit.Host.RabbitMQ.Tests
@@ -25,6 +22,7 @@ namespace MassTransit.Host.RabbitMQ.Tests
 
 			Assert.IsNotNull(result);
 			Assert.AreEqual(result.EndpointAddress, "rabbitmq://test/test");
+			Assert.AreEqual(result.QueueName, "test_queue");
 			Assert.AreEqual(result.RabbitMqUserName, "testUser");
 			Assert.AreEqual(result.RabbitMqPassword, "testPassword");
 		}
