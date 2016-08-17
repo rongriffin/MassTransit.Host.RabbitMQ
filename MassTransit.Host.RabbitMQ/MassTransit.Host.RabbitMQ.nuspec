@@ -2,14 +2,14 @@
 <package >
 	<metadata>
 		<id>MassTransit.Host.RabbitMQ</id>
-		<version>2.0.2</version>
+		<version>2.0.3</version>
 		<title>MassTransit.Host.RabbitMQ</title>
 		<authors>Ron Griffin</authors>
 		<owners>rongriffin@gmail.com</owners>
 		<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Service Bus Host for Mass Transit services using RabbitMQ</description>
-		<releaseNotes>Updating to MassTransit 3 and upgrading all other dependencies pull request from adback03.</releaseNotes>
+		<releaseNotes>Add logging of the queue name that the service is listening on.</releaseNotes>
 		<projectUrl>https://github.com/rongriffin/MassTransit.Host.RabbitMQ</projectUrl>
 		<copyright>Copyright 2014</copyright>
 		<tags>MassTransit host RabbitMQ</tags>

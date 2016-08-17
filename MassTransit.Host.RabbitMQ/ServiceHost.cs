@@ -70,6 +70,7 @@ namespace MassTransit.Host.RabbitMQ
 					else
 					{
 						busControl.ReceiveEndpoint(host, busConfig.QueueName, x => x.LoadFrom(container));
+						logger.Trace(string.Format("Connecting to RabbitMQ queue {0}", busConfig.QueueName));
 					}
 				});
 
