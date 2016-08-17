@@ -54,7 +54,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MassTransit.Host.RabbitMQ, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MassTransit.Host.RabbitMQ.2.0.2\lib\net452\MassTransit.Host.RabbitMQ.exe</HintPath>
+      <HintPath>..\packages\MassTransit.Host.RabbitMQ.2.0.3\lib\net452\MassTransit.Host.RabbitMQ.exe</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MassTransit.RabbitMqTransport, Version=3.3.1.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
