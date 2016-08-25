@@ -13,6 +13,7 @@
 // specific language governing permissions and limitations under the License.
 
 using System;
+using System.Threading.Tasks;
 using Magnum.Extensions;
 using Messaging;
 using MassTransit;
@@ -22,14 +23,17 @@ namespace Consumer
 	/// <summary>
 	/// Handles a message of type MyMessage that is received from the bus.
 	/// </summary>
-	public class MessageHandler : Consumes<MyMessage>.All
+	public class MessageHandler : IConsumer<MyMessage>
 	{
-		public void Consume(MyMessage message)
+
+		public Task Consume(ConsumeContext<MyMessage> context)
 		{
-			Console.WriteLine("Message recieved.\n\tid: {0}\n\ttimestamp: {1}\n\tmessage: {2}\n\n",
-				message.CorrelationId.Stringify(),
-				message.Timestamp.ToLongTimeString(),
-				message.Message);
+
+			var message = context.Message;
+
+			return Console.Out.WriteLineAsync(
+				$"Message recieved.\n\tid: {message.CorrelationId.Stringify()}\n\ttimestamp: {message.Timestamp.ToLongTimeString()}\n\tmessage: {message.Message}\n\n"
+			);
 		}
 	}
 }

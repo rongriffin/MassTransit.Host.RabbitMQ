@@ -61,6 +61,7 @@ namespace MassTransit.Host.RabbitMQ
 						h.Username(busConfig.RabbitMqUserName);
 						h.Password(busConfig.RabbitMqPassword);
 					});
+					busControl.UseRetry(Retry.Immediate(5));
 
 					// If queue name isn't specified, an auto-delete queue will be created
 					if (string.IsNullOrEmpty(busConfig.QueueName))
