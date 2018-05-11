@@ -35,13 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.4.1.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="GreenPipes, Version=2.1.0.106, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
       <HintPath>..\packages\GreenPipes.2.1.0\lib\net452\GreenPipes.dll</HintPath>
@@ -56,9 +54,8 @@
     <Reference Include="MassTransit.RabbitMqTransport, Version=5.1.0.1516, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
       <HintPath>..\packages\MassTransit.RabbitMQ.5.1.0\lib\net452\MassTransit.RabbitMqTransport.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit.WindsorIntegration, Version=3.3.1.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
-      <HintPath>..\packages\MassTransit.CastleWindsor.3.3.5\lib\net452\MassTransit.WindsorIntegration.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MassTransit.WindsorIntegration, Version=5.1.0.1516, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\MassTransit.CastleWindsor.5.1.0\lib\net452\MassTransit.WindsorIntegration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net40\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
@@ -82,10 +79,12 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -104,6 +103,7 @@
     <Compile Include="ServiceHost.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="NugetFiles\install.ps1" />
     <None Include="NugetFiles\MassTransit.Host.RabbitMQ.exe.config.transform">
       <SubType>Designer</SubType>

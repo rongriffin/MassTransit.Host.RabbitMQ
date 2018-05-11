@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>MassTransit.Host.RabbitMQ</id>
-		<version>3.0.0</version>
+		<version>3.0.1</version>
 		<title>MassTransit.Host.RabbitMQ</title>
 		<authors>Ron Griffin</authors>
 		<owners>rongriffin@gmail.com</owners>
@@ -19,7 +19,7 @@
 			<dependency id="GreenPipes" version="2.1.0"/>
 			<dependency id="Magnum" version="2.1.3"/>
 			<dependency id="MassTransit" version="5.1.0"/>
-			<dependency id="MassTransit.CastleWindsor" version="3.3.5" />
+			<dependency id="MassTransit.CastleWindsor" version="5.1.0" />
 			<dependency id="MassTransit.RabbitMQ" version="5.1.0" />
 			<dependency id="Microsoft.Diagnostics.Tracing.EventSource.Redist" version="1.1.28"/>
 			<dependency id="NewId" version="3.0.1"/>
