@@ -17,6 +17,7 @@ using System.Reflection;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using GreenPipes;
 using MassTransit.Host.RabbitMQ.Configuration;
 using NLog;
 
@@ -29,7 +30,7 @@ namespace MassTransit.Host.RabbitMQ
 	internal class ServiceHost
 	{
 		private IBusControl _bus;
-		private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		internal static string AssemblyDirectory
 		{
@@ -39,7 +40,7 @@ namespace MassTransit.Host.RabbitMQ
 				var uri = new UriBuilder(codeBase);
 				var path = Uri.UnescapeDataString(uri.Path);
 				var assemblyDir = Path.GetDirectoryName(path);
-				logger.Trace("Loading subscribers from path " + assemblyDir);
+				Logger.Trace("Loading subscribers from path " + assemblyDir);
 				return assemblyDir;
 			}
 		}
@@ -53,7 +54,7 @@ namespace MassTransit.Host.RabbitMQ
 				var container = new WindsorContainer().Install(FromAssembly.This());
 				RegisterTypes(container);
 
-				logger.Trace(string.Format("Connecting to RabbitMQ at endpoint {0}", busConfig.EndpointAddress));
+				Logger.Trace($"Connecting to RabbitMQ at endpoint {busConfig.EndpointAddress}");
 				_bus = Bus.Factory.CreateUsingRabbitMq(busControl =>
 				{
 					var host = busControl.Host(new Uri(busConfig.EndpointAddress), h =>
@@ -61,7 +62,8 @@ namespace MassTransit.Host.RabbitMQ
 						h.Username(busConfig.RabbitMqUserName);
 						h.Password(busConfig.RabbitMqPassword);
 					});
-					busControl.UseRetry(Retry.Immediate(5));
+
+					busControl.UseRetry(retryConfig => retryConfig.Immediate(5));
 
 					// If queue name isn't specified, an auto-delete queue will be created
 					if (string.IsNullOrEmpty(busConfig.QueueName))
@@ -71,7 +73,7 @@ namespace MassTransit.Host.RabbitMQ
 					else
 					{
 						busControl.ReceiveEndpoint(host, busConfig.QueueName, x => x.LoadFrom(container));
-						logger.Trace(string.Format("Connecting to RabbitMQ queue {0}", busConfig.QueueName));
+						Logger.Trace($"Connecting to RabbitMQ queue {busConfig.QueueName}");
 					}
 				});
 
@@ -79,14 +81,14 @@ namespace MassTransit.Host.RabbitMQ
 			}
 			catch (Exception e)
 			{
-				logger.Error(e.ToString);
+				Logger.Error(e.ToString);
 				throw;
 			}
 		}
 
 		public void Stop()
 		{
-			if (_bus != null) _bus.Stop();
+			_bus?.Stop();
 		}
 
 		internal static void RegisterTypes(IWindsorContainer container)
@@ -94,7 +96,6 @@ namespace MassTransit.Host.RabbitMQ
 			container
 				.Register(Types
 					.FromAssemblyInDirectory(new AssemblyFilter(AssemblyDirectory))
-					//	.IncludeNonPublicTypes()
 					.BasedOn<IConsumer>()
 					.Unless(t => t.Namespace != null && t.Namespace.StartsWith("MassTransit", StringComparison.OrdinalIgnoreCase)));
 
@@ -108,9 +109,8 @@ namespace MassTransit.Host.RabbitMQ
 
 			foreach (var handler in container.Kernel.GetAssignableHandlers(typeof(object)))
 			{
-				logger.Trace(string.Format("Loaded subscriber {0} {1}",
-					handler.ComponentModel.ComponentName.Name,
-					handler.ComponentModel.Implementation));
+				Logger.Trace(
+					$"Loaded subscriber {handler.ComponentModel.ComponentName.Name} {handler.ComponentModel.Implementation}");
 			}
 		}
 	}
