@@ -21,11 +21,13 @@ namespace MassTransit.Host.RabbitMQ.Configuration
     /// </summary>
     internal class ServiceBusConfig
 	{
-		public string EndpointAddress { get; set; }
+		public string HostAddress { get; set; }
+		public string VirtualHost { get; set; } = ""
 		public string QueueName { get; set; }
 		public string RabbitMqUserName { get; set; }
 		public string RabbitMqPassword { get; set; }
 		public int Port { get; set; } = 5672;
+		
 
 		public static ServiceBusConfig LoadFromConfig()
 		{
@@ -37,7 +39,7 @@ namespace MassTransit.Host.RabbitMQ.Configuration
 
 			var config = RabbitMqConnectionStringParser.Parse(connectionStringSetting.ConnectionString);
 
-			var endpointAddress = config.EndpointAddress;
+			var endpointAddress = config.HostAddress;
 			if (string.IsNullOrWhiteSpace(endpointAddress))
 			{
 				throw new ConfigurationErrorsException("RabbitMQ endpoint setting is missing from Host.RabbitMQConnection connection string");

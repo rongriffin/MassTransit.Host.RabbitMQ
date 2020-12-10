@@ -11,23 +11,22 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using System;
-using System.IO;
-using System.Reflection;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
-using GreenPipes;
 using MassTransit.Host.RabbitMQ.Configuration;
 using NLog;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace MassTransit.Host.RabbitMQ
 {
-	/// <summary>
-	/// The Service Host creates and configures and instance of the bus and registers any consumers found
-	/// as subscribers to the bus.
-	/// </summary>
-	internal class ServiceHost
+    /// <summary>
+    /// The Service Host creates and configures and instance of the bus and registers any consumers found
+    /// as subscribers to the bus.
+    /// </summary>
+    internal class ServiceHost
 	{
 		private IBusControl _bus;
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
@@ -51,33 +50,51 @@ namespace MassTransit.Host.RabbitMQ
 			{
 				var busConfig = ServiceBusConfig.LoadFromConfig();
 
+				// Find all consumers in the install directory
 				var container = new WindsorContainer().Install(FromAssembly.This());
 				RegisterTypes(container);
 
-				Logger.Trace($"Connecting to RabbitMQ at endpoint {busConfig.EndpointAddress}");
-				_bus = Bus.Factory.CreateUsingRabbitMq(busControl =>
+				container.AddMassTransit(c =>
 				{
-					var host = busControl.Host((new Uri(busConfig.EndpointAddress)), 5671, "/", h =>
+					c.AddConsumersFromContainer(container);
+
+					c.UsingRabbitMq((context, cfg) =>
 					{
-						h.Username(busConfig.RabbitMqUserName);
-						h.Password(busConfig.RabbitMqPassword);
-						h.UseSsl(s => { s.Protocol = System.Security.Authentication.SslProtocols.Tls12;  }); // Need to configure this
+						Logger.Trace($"Connecting to RabbitMQ at endpoint {busConfig.HostAddress}");
+						cfg.Host(busConfig.HostAddress, 5671, "/", h =>
+						{
+							h.Username(busConfig.RabbitMqUserName);
+							h.Password(busConfig.RabbitMqPassword);
+							h.UseSsl(s => { s.Protocol = System.Security.Authentication.SslProtocols.Tls12; }); // Need to configure this
+						});
+						
+						cfg.ReceiveEndpoint(busConfig.QueueName, endpoint => {
+							endpoint.ConfigureConsumers(context);							
+						});
+						Logger.Trace($"Connecting to RabbitMQ queue {busConfig.QueueName}");
+
 					});
 
-					busControl.UseRetry(retryConfig => retryConfig.Immediate(5));
-
-					// If queue name isn't specified, an auto-delete queue will be created
-					if (string.IsNullOrEmpty(busConfig.QueueName))
-					{
-						busControl.ReceiveEndpoint(host, x => x.LoadFrom(container));
-					}
-					else
-					{
-						busControl.ReceiveEndpoint(host, busConfig.QueueName, x => x.LoadFrom(container));
-						Logger.Trace($"Connecting to RabbitMQ queue {busConfig.QueueName}");
-					}
 				});
 
+				//Logger.Trace($"Connecting to RabbitMQ at endpoint {busConfig.EndpointAddress}");
+				//_bus = Bus.Factory.CreateUsingRabbitMq(busControl =>
+				//{					
+				//	busControl.Host(busConfig.EndpointAddress, 5671, "/", h =>
+				//	{
+				//		h.Username(busConfig.RabbitMqUserName);
+				//		h.Password(busConfig.RabbitMqPassword);
+				//		h.UseSsl(s => { s.Protocol = System.Security.Authentication.SslProtocols.Tls12;  }); // Need to configure this
+				//	});
+
+				//	busControl.UseRetry(retryConfig => retryConfig.Immediate(5));
+
+				//	Action<IReceiveEndpointConfigurator> a = endpoint => endpoint.LoadFrom(container);
+				//	busControl.ReceiveEndpoint(busConfig.QueueName, x => x.ConfigureConsumers(context));
+				//	Logger.Trace($"Connecting to RabbitMQ queue {busConfig.QueueName}");
+
+				//});
+				_bus = container.Kernel.Resolve<IBusControl>();
 				_bus.Start();
 			}
 			catch (Exception e)

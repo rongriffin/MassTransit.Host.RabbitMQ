@@ -11,14 +11,12 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using RabbitMQ.Client.Events;
-
 namespace MassTransit.Host.RabbitMQ.Configuration
 {
-	/// <summary>
-	/// Parses configuration for RabbitMQ into a <see cref="ServiceBusConfig"/>
-	/// </summary>
-	internal class RabbitMqConnectionStringParser
+    /// <summary>
+    /// Parses configuration for RabbitMQ into a <see cref="ServiceBusConfig"/>
+    /// </summary>
+    internal class RabbitMqConnectionStringParser
 	{
 		public static ServiceBusConfig Parse(string connectionString)
 		{
@@ -46,7 +44,10 @@ namespace MassTransit.Host.RabbitMQ.Configuration
 			switch (settingName)
 			{
 				case "endpoint" :
-					config.EndpointAddress = settingValue;
+					config.HostAddress = settingValue;
+					break;
+				case "vhost":
+					config.VirtualHost = settingValue;
 					break;
 				case "queuename":
 					config.QueueName = settingValue;

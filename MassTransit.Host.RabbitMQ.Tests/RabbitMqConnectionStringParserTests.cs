@@ -25,7 +25,7 @@ namespace MassTransit.Host.RabbitMQ.Tests
 			var result = RabbitMqConnectionStringParser.Parse(connectionString);
 
 			Assert.IsNotNull(result);
-			Assert.AreEqual(endpoint, result.EndpointAddress);
+			Assert.AreEqual(endpoint, result.HostAddress);
 			Assert.AreEqual(userid, result.RabbitMqUserName);
 			Assert.AreEqual(password, result.RabbitMqPassword);
 			Assert.AreEqual(queueName, result.QueueName);
@@ -45,7 +45,7 @@ namespace MassTransit.Host.RabbitMQ.Tests
 			var result = RabbitMqConnectionStringParser.Parse(connectionString);
 
 			Assert.IsNotNull(result);
-			Assert.AreEqual(endpoint, result.EndpointAddress);
+			Assert.AreEqual(endpoint, result.HostAddress);
 			Assert.AreEqual(userid, result.RabbitMqUserName);
 			Assert.AreEqual(password, result.RabbitMqPassword);
 			Assert.AreEqual(queueName, result.QueueName);
@@ -84,7 +84,7 @@ namespace MassTransit.Host.RabbitMQ.Tests
 			var result = RabbitMqConnectionStringParser.Parse(connectionString);
 
 			Assert.IsNotNull(result);
-			Assert.IsNull(result.EndpointAddress);
+			Assert.IsNull(result.HostAddress);
 			Assert.IsNull(result.RabbitMqUserName);
 			Assert.IsNull(result.RabbitMqPassword);
 			Assert.IsNull(result.QueueName);
