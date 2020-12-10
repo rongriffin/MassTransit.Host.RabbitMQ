@@ -57,6 +57,12 @@ namespace MassTransit.Host.RabbitMQ.Configuration
 				case "password" :
 					config.RabbitMqPassword = settingValue;
 					break;
+				case "port":
+					var port = 5672;
+					if (int.TryParse(settingValue, out port)) {
+						config.Port = port;
+                    }
+					break;
 			}
 		}
 

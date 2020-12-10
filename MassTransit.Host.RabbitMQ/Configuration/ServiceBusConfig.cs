@@ -12,20 +12,20 @@
 // specific language governing permissions and limitations under the License.
 
 using System;
-using System.Collections.Specialized;
 using System.Configuration;
 
 namespace MassTransit.Host.RabbitMQ.Configuration
 {
-	/// <summary>
-	/// Loads the bus configuration data from the .config file.
-	/// </summary>
-	internal class ServiceBusConfig
+    /// <summary>
+    /// Loads the bus configuration data from the .config file.
+    /// </summary>
+    internal class ServiceBusConfig
 	{
 		public string EndpointAddress { get; set; }
 		public string QueueName { get; set; }
 		public string RabbitMqUserName { get; set; }
 		public string RabbitMqPassword { get; set; }
+		public int Port { get; set; } = 5672;
 
 		public static ServiceBusConfig LoadFromConfig()
 		{

@@ -57,10 +57,11 @@ namespace MassTransit.Host.RabbitMQ
 				Logger.Trace($"Connecting to RabbitMQ at endpoint {busConfig.EndpointAddress}");
 				_bus = Bus.Factory.CreateUsingRabbitMq(busControl =>
 				{
-					var host = busControl.Host(new Uri(busConfig.EndpointAddress), h =>
+					var host = busControl.Host((new Uri(busConfig.EndpointAddress)), 5671, "/", h =>
 					{
 						h.Username(busConfig.RabbitMqUserName);
 						h.Password(busConfig.RabbitMqPassword);
+						h.UseSsl(s => { s.Protocol = System.Security.Authentication.SslProtocols.Tls12;  }); // Need to configure this
 					});
 
 					busControl.UseRetry(retryConfig => retryConfig.Immediate(5));
