@@ -51,9 +51,7 @@ namespace MassTransit.Host.RabbitMQ
 				var busConfig = ServiceBusConfig.LoadFromConfig();
 
 				// Find all consumers in the install directory
-				var container = new WindsorContainer().Install(FromAssembly.This());
-				RegisterTypes(container);
-
+				var container = new WindsorContainer().Install(FromAssembly.This());				
 				container.AddMassTransit(c =>
 				{
 					c.AddConsumersFromContainer(container);
@@ -61,7 +59,7 @@ namespace MassTransit.Host.RabbitMQ
 					c.UsingRabbitMq((context, cfg) =>
 					{
 						Logger.Trace($"Connecting to RabbitMQ at endpoint {busConfig.HostAddress}");
-						cfg.Host(busConfig.HostAddress, 5671, "/", h =>
+						cfg.Host(busConfig.HostAddress, busConfig.Port, busConfig.VirtualHost ?? string.Empty, h =>
 						{
 							h.Username(busConfig.RabbitMqUserName);
 							h.Password(busConfig.RabbitMqPassword);
@@ -77,23 +75,6 @@ namespace MassTransit.Host.RabbitMQ
 
 				});
 
-				//Logger.Trace($"Connecting to RabbitMQ at endpoint {busConfig.EndpointAddress}");
-				//_bus = Bus.Factory.CreateUsingRabbitMq(busControl =>
-				//{					
-				//	busControl.Host(busConfig.EndpointAddress, 5671, "/", h =>
-				//	{
-				//		h.Username(busConfig.RabbitMqUserName);
-				//		h.Password(busConfig.RabbitMqPassword);
-				//		h.UseSsl(s => { s.Protocol = System.Security.Authentication.SslProtocols.Tls12;  }); // Need to configure this
-				//	});
-
-				//	busControl.UseRetry(retryConfig => retryConfig.Immediate(5));
-
-				//	Action<IReceiveEndpointConfigurator> a = endpoint => endpoint.LoadFrom(container);
-				//	busControl.ReceiveEndpoint(busConfig.QueueName, x => x.ConfigureConsumers(context));
-				//	Logger.Trace($"Connecting to RabbitMQ queue {busConfig.QueueName}");
-
-				//});
 				_bus = container.Kernel.Resolve<IBusControl>();
 				_bus.Start();
 			}
@@ -107,18 +88,6 @@ namespace MassTransit.Host.RabbitMQ
 		public void Stop()
 		{
 			_bus?.Stop();
-		}
-
-		internal static void RegisterTypes(IWindsorContainer container)
-		{
-			container
-				.Register(Types
-					.FromAssemblyInDirectory(new AssemblyFilter(AssemblyDirectory))
-					.BasedOn<IConsumer>()
-					.Unless(t => t.Namespace != null && t.Namespace.StartsWith("MassTransit", StringComparison.OrdinalIgnoreCase)));
-
-			LogRegisteredSubscribers(container);
-
 		}
 
 		internal static void LogRegisteredSubscribers(IWindsorContainer container)

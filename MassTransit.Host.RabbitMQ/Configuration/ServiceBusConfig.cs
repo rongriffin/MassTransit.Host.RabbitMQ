@@ -21,12 +21,14 @@ namespace MassTransit.Host.RabbitMQ.Configuration
     /// </summary>
     internal class ServiceBusConfig
 	{
+		public const ushort DEFAULT_PORT = 5672;
+
 		public string HostAddress { get; set; }
-		public string VirtualHost { get; set; } = ""
+		public string VirtualHost { get; set; } = string.Empty;
 		public string QueueName { get; set; }
 		public string RabbitMqUserName { get; set; }
 		public string RabbitMqPassword { get; set; }
-		public int Port { get; set; } = 5672;
+		public ushort Port { get; set; } = DEFAULT_PORT;
 		
 
 		public static ServiceBusConfig LoadFromConfig()

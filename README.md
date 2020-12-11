@@ -6,11 +6,24 @@ A service host process for MassTransit consumer services using RabbitMQ for tran
 
 **Usage:**
 
-1. Create a new Visual Studio class library (.NET 4.5 or later).
+1. Create a new Visual Studio class library (.NET 4.8 or later).
 2. Install **MassTransit.Host.RabbitMQ** from NuGet (Install-Package MassTransit.Host.RabbitMQ)
-3. Create MassTransit consumers that implement Consumes<T> (see: [http://masstransit.readthedocs.org/en/latest/learning/firstConsumer.html](http://masstransit.readthedocs.org/en/latest/learning/firstConsumer.html))
+3. Create MassTransit consumers that implement IConsumer<T> (see: [https://masstransit-project.com/usage/consumers.html](https://masstransit-project.com/usage/consumers.html)
 4. Update *MassTransit.Host.RabbitMQ.exe.config* in your project to configure your RabbitMQ endpoint address and credentials.
 5. Run!
+
+**Connection string format**
+
+```
+endpoint=rabbitmq://my-message-broker.mycompany.com; userid=rmquser; password=p@ssw0rd; queueName=my_queue;vhost=my_vhost;port=5671;
+```
+
+endpoint - The host name for the RabbitMQ cluster.
+userid - The user name of a RabbitMQ user with access to the vhost.
+password - The user passwrod of a RabbitMQ user with access to the vhost.
+queueName - The queue to receive messages on.
+vhost - The RabbitMQ virtual host name. Default is `string.Empty`.
+port - The traffic port for the broker connection.  Default is `5672`.
 
 **Enable Logging:**
 
