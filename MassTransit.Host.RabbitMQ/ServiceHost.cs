@@ -62,8 +62,7 @@ namespace MassTransit.Host.RabbitMQ
 						cfg.Host(busConfig.HostAddress, busConfig.Port, busConfig.VirtualHost ?? string.Empty, h =>
 						{
 							h.Username(busConfig.RabbitMqUserName);
-							h.Password(busConfig.RabbitMqPassword);
-							h.UseSsl(s => { s.Protocol = System.Security.Authentication.SslProtocols.Tls12; }); // Need to configure this
+							h.Password(busConfig.RabbitMqPassword);							
 						});
 						
 						cfg.ReceiveEndpoint(busConfig.QueueName, endpoint => {
