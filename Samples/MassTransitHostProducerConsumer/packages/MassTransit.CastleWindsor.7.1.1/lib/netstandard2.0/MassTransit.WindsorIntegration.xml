@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MassTransit.WindsorIntegration</name>
+    </assembly>
+    <members>
+        <member name="T:MassTransit.WindsorIntegration.Pipeline.WindsorMessageScopeFilter">
+            <summary>
+            Calls by the inbound message pipeline to begin and end a message scope
+            in the container.
+            </summary>
+        </member>
+        <member name="T:MassTransit.WindsorContainerExtensions">
+            <summary>
+            Extension methods for the Windsor IoC container.
+            </summary>
+        </member>
+        <member name="M:MassTransit.WindsorContainerExtensions.RegisterInMemorySagaRepository``1(Castle.Windsor.IWindsorContainer)">
+            <summary>
+            Register the InMemory saga repository for the specified saga type
+            </summary>
+            <param name="container"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:MassTransit.WindsorReceiveEndpointExtensions.Consumer``1(MassTransit.IReceiveEndpointConfigurator,Castle.MicroKernel.IKernel,System.Action{MassTransit.ConsumeConfigurators.IConsumerConfigurator{``0}})">
+            <summary>
+            Registers a consumer given the lifetime scope specified
+            </summary>
+            <typeparam name="T">The consumer type</typeparam>
+            <param name="configurator">The service bus configurator</param>
+            <param name="kernel">The LifetimeScope of the container</param>
+            <param name="configure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MassTransit.WindsorReceiveEndpointExtensions.Consumer``1(MassTransit.IReceiveEndpointConfigurator,Castle.Windsor.IWindsorContainer,System.Action{MassTransit.ConsumeConfigurators.IConsumerConfigurator{``0}})">
+            <summary>
+            Registers a consumer given the lifetime scope specified
+            </summary>
+            <typeparam name="T">The consumer type</typeparam>
+            <param name="configurator">The service bus configurator</param>
+            <param name="container">The LifetimeScope of the container</param>
+            <param name="configure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MassTransit.WindsorReceiveEndpointExtensions.Consumer``2(MassTransit.ConsumeConfigurators.IBatchConfigurator{``1},Castle.MicroKernel.IKernel,System.Action{MassTransit.ConsumeConfigurators.IConsumerMessageConfigurator{``0,MassTransit.Batch{``1}}})">
+            <summary>
+            Connect a consumer with a consumer factory method
+            </summary>
+            <typeparam name="TConsumer"></typeparam>
+            <typeparam name="TMessage"></typeparam>
+            <param name="configurator"></param>
+            <param name="kernel"></param>
+            <param name="configure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MassTransit.WindsorReceiveEndpointExtensions.Consumer``2(MassTransit.ConsumeConfigurators.IBatchConfigurator{``1},Castle.Windsor.IWindsorContainer,System.Action{MassTransit.ConsumeConfigurators.IConsumerMessageConfigurator{``0,MassTransit.Batch{``1}}})">
+            <summary>
+            Connect a consumer with a consumer factory method
+            </summary>
+            <typeparam name="TConsumer"></typeparam>
+            <typeparam name="TMessage"></typeparam>
+            <param name="configurator"></param>
+            <param name="container"></param>
+            <param name="configure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MassTransit.WindsorReceiveEndpointExtensions.Saga``1(MassTransit.IReceiveEndpointConfigurator,Castle.MicroKernel.IKernel,System.Action{MassTransit.ISagaConfigurator{``0}})">
+            <summary>
+            Registers a saga using the container that has the repository resolved from the container
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="configurator"></param>
+            <param name="kernel"></param>
+            <param name="configure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MassTransit.WindsorReceiveEndpointExtensions.Saga``1(MassTransit.IReceiveEndpointConfigurator,Castle.Windsor.IWindsorContainer,System.Action{MassTransit.ISagaConfigurator{``0}})">
+            <summary>
+            Registers a saga using the container that has the repository resolved from the container
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="configurator"></param>
+            <param name="container"></param>
+            <param name="configure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MassTransit.WindsorReceiveEndpointExtensions.StateMachineSaga``1(MassTransit.IReceiveEndpointConfigurator,Automatonymous.SagaStateMachine{``0},Castle.MicroKernel.IKernel,System.Action{MassTransit.ISagaConfigurator{``0}})">
+            <summary>
+            Subscribe a state machine saga to the endpoint
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <param name="configurator"></param>
+            <param name="stateMachine">The state machine</param>
+            <param name="kernel">The Windsor Lifetime container to resolve the repository</param>
+            <param name="configure">Optionally configure the saga</param>
+            <returns></returns>
+        </member>
+        <member name="M:MassTransit.WindsorReceiveEndpointExtensions.StateMachineSaga``1(MassTransit.IReceiveEndpointConfigurator,Automatonymous.SagaStateMachine{``0},Castle.Windsor.IWindsorContainer,System.Action{MassTransit.ISagaConfigurator{``0}})">
+            <summary>
+            Subscribe a state machine saga to the endpoint
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <param name="configurator"></param>
+            <param name="stateMachine">The state machine</param>
+            <param name="container">The Windsor Lifetime container to resolve the repository</param>
+            <param name="configure">Optionally configure the saga</param>
+            <returns></returns>
+        </member>
+        <member name="M:MassTransit.WindsorReceiveEndpointExtensions.StateMachineSaga``1(MassTransit.IReceiveEndpointConfigurator,Castle.MicroKernel.IKernel,System.Action{MassTransit.ISagaConfigurator{``0}})">
+            <summary>
+            Subscribe a state machine saga to the endpoint
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <param name="configurator"></param>
+            <param name="kernel">The Windsor Lifetime Container to resolve the repository</param>
+            <param name="configure">Optionally configure the saga</param>
+            <returns></returns>
+        </member>
+        <member name="M:MassTransit.WindsorReceiveEndpointExtensions.StateMachineSaga``1(MassTransit.IReceiveEndpointConfigurator,Castle.Windsor.IWindsorContainer,System.Action{MassTransit.ISagaConfigurator{``0}})">
+            <summary>
+            Subscribe a state machine saga to the endpoint
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <param name="configurator"></param>
+            <param name="container">The Windsor Lifetime Container to resolve the repository</param>
+            <param name="configure">Optionally configure the saga</param>
+            <returns></returns>
+        </member>
+        <member name="M:MassTransit.WindsorReceiveEndpointExtensions.UseMessageScope(MassTransit.IConsumePipeConfigurator)">
+            <summary>
+            Enables message scope lifetime for windsor containers
+            </summary>
+            <param name="configurator"></param>
+        </member>
+        <member name="T:MassTransit.WindsorRegistrationExtensions">
+            <summary>
+            Standard registration extensions, which are used to configure consumers, sagas, and activities on receive endpoints from a
+            dependency injection container.
+            </summary>
+        </member>
+        <member name="M:MassTransit.WindsorRegistrationExtensions.AddMassTransit(Castle.Windsor.IWindsorContainer,System.Action{MassTransit.WindsorIntegration.IWindsorContainerBusConfigurator})">
+            <summary>
+            Adds the required services to the service collection, and allows consumers to be added and/or discovered
+            </summary>
+            <param name="container"></param>
+            <param name="configure"></param>
+        </member>
+        <member name="M:MassTransit.WindsorRegistrationExtensions.AddMediator(Castle.Windsor.IWindsorContainer,System.Action{MassTransit.WindsorIntegration.IWindsorContainerMediatorConfigurator})">
+            <summary>
+            Adds the required services to the service collection, and allows consumers to be added and/or discovered
+            </summary>
+            <param name="container"></param>
+            <param name="configure"></param>
+        </member>
+        <member name="M:MassTransit.WindsorRegistrationExtensions.AddConsumersFromContainer(MassTransit.IRegistrationConfigurator,Castle.Windsor.IWindsorContainer)">
+            <summary>
+            Add consumers that were already added to the container to the registration
+            </summary>
+        </member>
+        <member name="M:MassTransit.WindsorRegistrationExtensions.AddSagasFromContainer(MassTransit.IRegistrationConfigurator,Castle.Windsor.IWindsorContainer)">
+            <summary>
+            Add sagas that were already added to the container to the registration
+            </summary>
+        </member>
+        <member name="M:MassTransit.Transactions.WindsorTransactionExtensions.AddTransactionalEnlistmentBus(MassTransit.WindsorIntegration.IWindsorContainerBusConfigurator)">
+            <summary>
+            Adds <see cref="T:MassTransit.Transactions.ITransactionalBus"/> to the container with singleton lifetime, which can be used instead of <see cref="T:MassTransit.IBus"/> to enlist
+            published/sent messages in the current transaction. It isn't truly transactional, but delays the messages until
+            the transaction being to commit. This has a very limited purpose and is not meant for general use.
+            </summary>
+        </member>
+        <member name="M:MassTransit.Transactions.WindsorTransactionExtensions.AddTransactionalBus(MassTransit.WindsorIntegration.IWindsorContainerBusConfigurator)">
+            <summary>
+            Adds <see cref="T:MassTransit.Transactions.ITransactionalBus"/> to the container with scoped lifetime, which can be used to release the messages to the bus
+            immediately after a transaction commit. This has a very limited purpose and is not meant for general use.
+            It is recommended this is scoped within a unit of work (e.g. Http Request)
+            </summary>
+        </member>
+    </members>
+</doc>

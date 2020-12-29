@@ -9,7 +9,7 @@ namespace MassTransit.Host.RabbitMQ.Tests
 	[TestClass]
 	public class RabbitMqConnectionStringParserTests
 	{
-		private const string ConectionStringFormat = "endpoint={0}; userid={1}; password={2}; queueName={3};something=";
+		private const string ConectionStringFormat = "endpoint={0}; userid={1}; password={2}; queueName={3};vhost={4};port={5};something=";
 
 		/// <summary>
 		/// Test a well-formed connection string
@@ -21,14 +21,18 @@ namespace MassTransit.Host.RabbitMQ.Tests
 			const string userid = "testUser";
 			const string password = "testPassw0rd1";
 			const string queueName = "testQueueName";
-			var connectionString = string.Format(ConectionStringFormat, endpoint, userid, password, queueName);
+			const string vhost = "testVhost";
+			const ushort port = 1234;
+			var connectionString = string.Format(ConectionStringFormat, endpoint, userid, password, queueName, vhost, port);
 			var result = RabbitMqConnectionStringParser.Parse(connectionString);
 
 			Assert.IsNotNull(result);
-			Assert.AreEqual(endpoint, result.EndpointAddress);
+			Assert.AreEqual(endpoint, result.HostAddress);
 			Assert.AreEqual(userid, result.RabbitMqUserName);
 			Assert.AreEqual(password, result.RabbitMqPassword);
 			Assert.AreEqual(queueName, result.QueueName);
+			Assert.AreEqual(vhost, result.VirtualHost);
+			Assert.AreEqual(port, result.Port);
 		}
 
 		/// <summary>
@@ -41,11 +45,13 @@ namespace MassTransit.Host.RabbitMQ.Tests
 			const string userid = "test=User";
 			const string password = "test=Passw0rd=1";
 			const string queueName = "queuName";
-			var connectionString = string.Format(ConectionStringFormat, endpoint, userid, password, queueName);
+			const string vhost = "testVhost";
+			const ushort port = 1234;
+			var connectionString = string.Format(ConectionStringFormat, endpoint, userid, password, queueName, vhost, port);
 			var result = RabbitMqConnectionStringParser.Parse(connectionString);
 
 			Assert.IsNotNull(result);
-			Assert.AreEqual(endpoint, result.EndpointAddress);
+			Assert.AreEqual(endpoint, result.HostAddress);
 			Assert.AreEqual(userid, result.RabbitMqUserName);
 			Assert.AreEqual(password, result.RabbitMqPassword);
 			Assert.AreEqual(queueName, result.QueueName);
@@ -84,7 +90,7 @@ namespace MassTransit.Host.RabbitMQ.Tests
 			var result = RabbitMqConnectionStringParser.Parse(connectionString);
 
 			Assert.IsNotNull(result);
-			Assert.IsNull(result.EndpointAddress);
+			Assert.IsNull(result.HostAddress);
 			Assert.IsNull(result.RabbitMqUserName);
 			Assert.IsNull(result.RabbitMqPassword);
 			Assert.IsNull(result.QueueName);

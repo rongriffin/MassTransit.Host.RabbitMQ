@@ -12,7 +12,6 @@
 // specific language governing permissions and limitations under the License.
 
 using System;
-using Magnum;
 using MassTransit;
 
 namespace Messaging
@@ -25,7 +24,7 @@ namespace Messaging
 		/// <summary>
 		/// CombGuid is a db friendly guid (for ordering)
 		/// </summary>
-		private readonly Guid _correlationId = CombGuid.Generate();
+		private readonly Guid _correlationId = (new NewId()).ToGuid();
 
 		/// <summary>
 		/// Property needed for correlation.

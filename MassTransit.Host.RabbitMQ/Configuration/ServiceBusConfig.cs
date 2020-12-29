@@ -12,20 +12,25 @@
 // specific language governing permissions and limitations under the License.
 
 using System;
-using System.Collections.Specialized;
 using System.Configuration;
 
 namespace MassTransit.Host.RabbitMQ.Configuration
 {
-	/// <summary>
-	/// Loads the bus configuration data from the .config file.
-	/// </summary>
-	internal class ServiceBusConfig
+    /// <summary>
+    /// Loads the bus configuration data from the .config file.
+    /// </summary>
+    internal class ServiceBusConfig
 	{
-		public string EndpointAddress { get; set; }
+		public const ushort DEFAULT_PORT = 5672;
+		public const string DEFAULT_VHOST = "/";
+
+		public string HostAddress { get; set; }
+		public string VirtualHost { get; set; } = DEFAULT_VHOST;
 		public string QueueName { get; set; }
 		public string RabbitMqUserName { get; set; }
 		public string RabbitMqPassword { get; set; }
+		public ushort Port { get; set; } = DEFAULT_PORT;
+		
 
 		public static ServiceBusConfig LoadFromConfig()
 		{
@@ -37,7 +42,7 @@ namespace MassTransit.Host.RabbitMQ.Configuration
 
 			var config = RabbitMqConnectionStringParser.Parse(connectionStringSetting.ConnectionString);
 
-			var endpointAddress = config.EndpointAddress;
+			var endpointAddress = config.HostAddress;
 			if (string.IsNullOrWhiteSpace(endpointAddress))
 			{
 				throw new ConfigurationErrorsException("RabbitMQ endpoint setting is missing from Host.RabbitMQConnection connection string");

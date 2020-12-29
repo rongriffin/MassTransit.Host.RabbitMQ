@@ -21,7 +21,7 @@ namespace MassTransit.Host.RabbitMQ.Tests
 			var result = ServiceBusConfig.LoadFromConfig();
 
 			Assert.IsNotNull(result);
-			Assert.AreEqual(result.EndpointAddress, "rabbitmq://test/test");
+			Assert.AreEqual(result.HostAddress, "rabbitmq://test/test");
 			Assert.AreEqual(result.QueueName, "test_queue");
 			Assert.AreEqual(result.RabbitMqUserName, "testUser");
 			Assert.AreEqual(result.RabbitMqPassword, "testPassword");

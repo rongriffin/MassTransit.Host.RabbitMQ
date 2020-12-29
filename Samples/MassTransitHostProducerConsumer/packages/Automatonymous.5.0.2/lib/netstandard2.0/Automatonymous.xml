@@ -1,0 +1,2715 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Automatonymous</name>
+    </assembly>
+    <members>
+        <member name="T:Automatonymous.Accessors.DefaultInstanceStateAccessor`1">
+            <summary>
+            The default state accessor will attempt to find and use a single State property on the
+            instance type. If no State property is found, or more than one is found, an exception
+            will be thrown
+            </summary>
+        </member>
+        <member name="T:Automatonymous.Accessors.IntStateAccessor`1">
+            <summary>
+            Accesses the current state as a string property
+            </summary>
+            <typeparam name="TInstance">The instance type</typeparam>
+        </member>
+        <member name="T:Automatonymous.Accessors.StringStateAccessor`1">
+            <summary>
+            Accesses the current state as a string property
+            </summary>
+            <typeparam name="TInstance">The instance type</typeparam>
+        </member>
+        <member name="T:Automatonymous.Activities.CatchFaultActivity`2">
+            <summary>
+            Catches an exception of a specific type and compensates using the behavior
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TException"></typeparam>
+        </member>
+        <member name="T:Automatonymous.Activities.SlimActivity`2">
+            <summary>
+            Adapts an Activity to a Data Activity context
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="T:Automatonymous.Activity`1">
+            <summary>
+            An activity is part of a behavior that is executed in order
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+        </member>
+        <member name="M:Automatonymous.Activity`1.Execute(Automatonymous.BehaviorContext{`0},Automatonymous.Behavior{`0})">
+            <summary>
+            Execute the activity with the given behavior context
+            </summary>
+            <param name="context">The behavior context</param>
+            <param name="next">The behavior that follows this activity</param>
+            <returns>An awaitable task</returns>
+        </member>
+        <member name="M:Automatonymous.Activity`1.Execute``1(Automatonymous.BehaviorContext{`0,``0},Automatonymous.Behavior{`0,``0})">
+            <summary>
+            Execute the activity with the given behavior context
+            </summary>
+            <param name="context">The behavior context</param>
+            <param name="next">The behavior that follows this activity</param>
+            <returns>An awaitable task</returns>
+        </member>
+        <member name="M:Automatonymous.Activity`1.Faulted``1(Automatonymous.BehaviorExceptionContext{`0,``0},Automatonymous.Behavior{`0})">
+            <summary>
+            The exception path through the behavior allows activities to catch and handle exceptions
+            </summary>
+            <typeparam name="TException"></typeparam>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Activity`1.Faulted``2(Automatonymous.BehaviorExceptionContext{`0,``0,``1},Automatonymous.Behavior{`0,``0})">
+            <summary>
+            The exception path through the behavior allows activities to catch and handle exceptions
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TException"></typeparam>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Activity`2.Execute(Automatonymous.BehaviorContext{`0,`1},Automatonymous.Behavior{`0,`1})">
+            <summary>
+            Execute the activity with the given behavior context
+            </summary>
+            <param name="context">The behavior context</param>
+            <param name="next">The behavior that follows this activity</param>
+            <returns>An awaitable task</returns>
+        </member>
+        <member name="M:Automatonymous.Activity`2.Faulted``1(Automatonymous.BehaviorExceptionContext{`0,`1,``0},Automatonymous.Behavior{`0,`1})">
+            <summary>
+            The exception path through the behavior allows activities to catch and handle exceptions
+            </summary>
+            <typeparam name="TException"></typeparam>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.InstanceState(System.Linq.Expressions.Expression{System.Func{`0,Automatonymous.State}})">
+            <summary>
+            Declares what property holds the TInstance's state on the current instance of the state machine
+            </summary>
+            <param name="instanceStateProperty"></param>
+            <remarks>Setting the state accessor more than once will cause the property managed by the state machine to change each time.
+            Please note, the state machine can only manage one property at a given time per instance,
+            and the best practice is to manage one property per machine.
+            </remarks>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.InstanceState(System.Linq.Expressions.Expression{System.Func{`0,System.String}})">
+            <summary>
+            Declares the property to hold the instance's state as a string (the state name is stored in the property)
+            </summary>
+            <param name="instanceStateProperty"></param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.InstanceState(System.Linq.Expressions.Expression{System.Func{`0,System.Int32}},Automatonymous.State[])">
+            <summary>
+            Declares the property to hold the instance's state as an int (0 - none, 1 = initial, 2 = final, 3... the rest)
+            </summary>
+            <param name="instanceStateProperty"></param>
+            <param name="states">Specifies the states, in order, to which the int values should be assigned</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.Name(System.String)">
+            <summary>
+            Specifies the name of the state machine
+            </summary>
+            <param name="machineName"></param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.Event(System.Linq.Expressions.Expression{System.Func{Automatonymous.Event}})">
+            <summary>
+            Declares an event, and initializes the event property
+            </summary>
+            <param name="propertyExpression"></param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.Event``1(System.Linq.Expressions.Expression{System.Func{Automatonymous.Event{``0}}})">
+            <summary>
+            Declares a data event on the state machine, and initializes the property
+            </summary>
+            <param name="propertyExpression">The event property</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.Event``2(System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``0,Automatonymous.Event{``1}}})">
+            <summary>
+            Declares a data event on a property of the state machine, and initializes the property
+            </summary>
+            <param name="propertyExpression">The property</param>
+            <param name="eventPropertyExpression">The event property on the property</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.CompositeEvent(System.Linq.Expressions.Expression{System.Func{Automatonymous.Event}},System.Linq.Expressions.Expression{System.Func{`0,Automatonymous.CompositeEventStatus}},Automatonymous.Event[])">
+            <summary>
+            Adds a composite event to the state machine. A composite event is triggered when all
+            off the required events have been raised. Note that required events cannot be in the initial
+            state since it would cause extra instances of the state machine to be created
+            </summary>
+            <param name="propertyExpression">The composite event</param>
+            <param name="trackingPropertyExpression">The property in the instance used to track the state of the composite event</param>
+            <param name="events">The events that must be raised before the composite event is raised</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.CompositeEvent(System.Linq.Expressions.Expression{System.Func{Automatonymous.Event}},System.Linq.Expressions.Expression{System.Func{`0,Automatonymous.CompositeEventStatus}},Automatonymous.CompositeEventOptions,Automatonymous.Event[])">
+            <summary>
+            Adds a composite event to the state machine. A composite event is triggered when all
+            off the required events have been raised. Note that required events cannot be in the initial
+            state since it would cause extra instances of the state machine to be created
+            </summary>
+            <param name="propertyExpression">The composite event</param>
+            <param name="trackingPropertyExpression">The property in the instance used to track the state of the composite event</param>
+            <param name="options">Options on the composite event</param>
+            <param name="events">The events that must be raised before the composite event is raised</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.CompositeEvent(System.Linq.Expressions.Expression{System.Func{Automatonymous.Event}},System.Linq.Expressions.Expression{System.Func{`0,System.Int32}},Automatonymous.Event[])">
+            <summary>
+            Adds a composite event to the state machine. A composite event is triggered when all
+            off the required events have been raised. Note that required events cannot be in the initial
+            state since it would cause extra instances of the state machine to be created
+            </summary>
+            <param name="propertyExpression">The composite event</param>
+            <param name="trackingPropertyExpression">The property in the instance used to track the state of the composite event</param>
+            <param name="events">The events that must be raised before the composite event is raised</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.CompositeEvent(System.Linq.Expressions.Expression{System.Func{Automatonymous.Event}},System.Linq.Expressions.Expression{System.Func{`0,System.Int32}},Automatonymous.CompositeEventOptions,Automatonymous.Event[])">
+            <summary>
+            Adds a composite event to the state machine. A composite event is triggered when all
+            off the required events have been raised. Note that required events cannot be in the initial
+            state since it would cause extra instances of the state machine to be created
+            </summary>
+            <param name="propertyExpression">The composite event</param>
+            <param name="trackingPropertyExpression">The property in the instance used to track the state of the composite event</param>
+            <param name="options">Options on the composite event</param>
+            <param name="events">The events that must be raised before the composite event is raised</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.State(System.Linq.Expressions.Expression{System.Func{Automatonymous.State}})">
+            <summary>
+            Declares a state on the state machine, and initialized the property
+            </summary>
+            <param name="propertyExpression">The state property</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.State``1(System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``0,Automatonymous.State}})">
+            <summary>
+            Declares a state on the state machine, and initialized the property
+            </summary>
+            <param name="propertyExpression">The property containing the state</param>
+            <param name="statePropertyExpression">The state property</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.SubState(System.Linq.Expressions.Expression{System.Func{Automatonymous.State}},Automatonymous.State)">
+            <summary>
+            Declares a sub-state on the machine. A sub-state is a state that is valid within a super-state,
+            allowing a state machine to have multiple "states" -- nested parts of an overall state.
+            </summary>
+            <param name="propertyExpression">The state property expression</param>
+            <param name="superState">The superstate of which this state is a substate</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.SubState``1(System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``0,Automatonymous.State}},Automatonymous.State)">
+            <summary>
+            Declares a state on the state machine, and initialized the property
+            </summary>
+            <param name="propertyExpression">The property containing the state</param>
+            <param name="statePropertyExpression">The state property</param>
+            <param name="superState">The superstate of which this state is a substate</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.SetState(System.String,Automatonymous.States.StateMachineState{`0})">
+            <summary>
+            Adds the state, and state transition events, to the cache
+            </summary>
+            <param name="name"></param>
+            <param name="state"></param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.During(Automatonymous.State,Automatonymous.Binders.EventActivities{`0}[])">
+            <summary>
+            Declares the events and associated activities that are handled during the specified state
+            </summary>
+            <param name="state">The state</param>
+            <param name="activities">The event and activities</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.During(Automatonymous.State,Automatonymous.State,Automatonymous.Binders.EventActivities{`0}[])">
+            <summary>
+            Declares the events and associated activities that are handled during the specified states
+            </summary>
+            <param name="state1">The state</param>
+            <param name="state2">The other state</param>
+            <param name="activities">The event and activities</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.During(Automatonymous.State,Automatonymous.State,Automatonymous.State,Automatonymous.Binders.EventActivities{`0}[])">
+            <summary>
+            Declares the events and associated activities that are handled during the specified states
+            </summary>
+            <param name="state1">The state</param>
+            <param name="state2">The other state</param>
+            <param name="state3">The other other state</param>
+            <param name="activities">The event and activities</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.During(Automatonymous.State,Automatonymous.State,Automatonymous.State,Automatonymous.State,Automatonymous.Binders.EventActivities{`0}[])">
+            <summary>
+            Declares the events and associated activities that are handled during the specified states
+            </summary>
+            <param name="state1">The state</param>
+            <param name="state2">The other state</param>
+            <param name="state3">The other other state</param>
+            <param name="state4">Okay, this is getting a bit ridiculous at this point</param>
+            <param name="activities">The event and activities</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.During(System.Collections.Generic.IEnumerable{Automatonymous.State},Automatonymous.Binders.EventActivities{`0}[])">
+            <summary>
+            Declares the events and associated activities that are handled during the specified states
+            </summary>
+            <param name="states">The states</param>
+            <param name="activities">The event and activities</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.Initially(Automatonymous.Binders.EventActivities{`0}[])">
+            <summary>
+            Declares the events and activities that are handled during the initial state
+            </summary>
+            <param name="activities">The event and activities</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.DuringAny(Automatonymous.Binders.EventActivities{`0}[])">
+            <summary>
+            Declares events and activities that are handled during any state exception Initial and Final
+            </summary>
+            <param name="activities">The event and activities</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.Finally(System.Func{Automatonymous.Binders.EventActivityBinder{`0},Automatonymous.Binders.EventActivityBinder{`0}})">
+            <summary>
+            When the Final state is entered, execute the chained activities. This occurs in any state that is not the initial or final state
+            </summary>
+            <param name="activityCallback">Specify the activities that are executes when the Final state is entered.</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.When(Automatonymous.Event)">
+            <summary>
+            When the event is fired in this state, execute the chained activities
+            </summary>
+            <param name="event">The fired event</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.When(Automatonymous.Event,Automatonymous.StateMachineEventFilter{`0})">
+            <summary>
+            When the event is fired in this state, and the event data matches the filter expression, execute the chained activities
+            </summary>
+            <param name="event">The fired event</param>
+            <param name="filter">The filter applied to the event</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.WhenEnter(Automatonymous.State,System.Func{Automatonymous.Binders.EventActivityBinder{`0},Automatonymous.Binders.EventActivityBinder{`0}})">
+            <summary>
+            When entering the specified state
+            </summary>
+            <param name="state"></param>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.WhenEnterAny(System.Func{Automatonymous.Binders.EventActivityBinder{`0},Automatonymous.Binders.EventActivityBinder{`0}})">
+            <summary>
+            When entering any state
+            </summary>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.WhenLeaveAny(System.Func{Automatonymous.Binders.EventActivityBinder{`0},Automatonymous.Binders.EventActivityBinder{`0}})">
+            <summary>
+            When leaving any state
+            </summary>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.BeforeEnterAny(System.Func{Automatonymous.Binders.EventActivityBinder{`0,Automatonymous.State},Automatonymous.Binders.EventActivityBinder{`0,Automatonymous.State}})">
+            <summary>
+            Before entering any state
+            </summary>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.AfterLeaveAny(System.Func{Automatonymous.Binders.EventActivityBinder{`0,Automatonymous.State},Automatonymous.Binders.EventActivityBinder{`0,Automatonymous.State}})">
+            <summary>
+            After leaving any state
+            </summary>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.WhenLeave(Automatonymous.State,System.Func{Automatonymous.Binders.EventActivityBinder{`0},Automatonymous.Binders.EventActivityBinder{`0}})">
+            <summary>
+            When leaving the specified state
+            </summary>
+            <param name="state"></param>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.BeforeEnter(Automatonymous.State,System.Func{Automatonymous.Binders.EventActivityBinder{`0,Automatonymous.State},Automatonymous.Binders.EventActivityBinder{`0,Automatonymous.State}})">
+            <summary>
+            Before entering the specified state
+            </summary>
+            <param name="state"></param>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.AfterLeave(Automatonymous.State,System.Func{Automatonymous.Binders.EventActivityBinder{`0,Automatonymous.State},Automatonymous.Binders.EventActivityBinder{`0,Automatonymous.State}})">
+            <summary>
+            After leaving the specified state
+            </summary>
+            <param name="state"></param>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.When``1(Automatonymous.Event{``0})">
+            <summary>
+            When the event is fired in this state, execute the chained activities
+            </summary>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="event">The fired event</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.When``1(Automatonymous.Event{``0},Automatonymous.StateMachineEventFilter{`0,``0})">
+            <summary>
+            When the event is fired in this state, and the event data matches the filter expression, execute the chained activities
+            </summary>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="event">The fired event</param>
+            <param name="filter">The filter applied to the event</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.Ignore(Automatonymous.Event)">
+            <summary>
+            Ignore the event in this state (no exception is thrown)
+            </summary>
+            <param name="event">The ignored event</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.Ignore``1(Automatonymous.Event{``0})">
+            <summary>
+            Ignore the event in this state (no exception is thrown)
+            </summary>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="event">The ignored event</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.Ignore``1(Automatonymous.Event{``0},Automatonymous.StateMachineEventFilter{`0,``0})">
+            <summary>
+            Ignore the event in this state (no exception is thrown)
+            </summary>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="event">The ignored event</param>
+            <param name="filter">The filter to apply to the event data</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.OnUnhandledEvent(Automatonymous.UnhandledEventCallback{`0})">
+            <summary>
+            Specifies a callback to invoke when an event is raised in a state where the event is not handled
+            </summary>
+            <param name="callback">The unhandled event callback</param>
+        </member>
+        <member name="M:Automatonymous.AutomatonymousStateMachine`1.RegisterImplicit">
+            <summary>
+            Register all remaining events and states that have not been explicitly declared.
+            </summary>
+        </member>
+        <member name="T:Automatonymous.Behavior">
+            <summary>
+            A behavior is invoked by a state when an event is raised on the instance and embodies
+            the activities that are executed in response to the event.
+            </summary>
+        </member>
+        <member name="M:Automatonymous.Behavior.Empty``1">
+            <summary>
+            Returns an empty pipe of the specified context type
+            </summary>
+            <typeparam name="T">The context type</typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.Behavior`1">
+            <summary>
+            A behavior is a chain of activities invoked by a state
+            </summary>
+            <typeparam name="TInstance">The state type</typeparam>
+        </member>
+        <member name="M:Automatonymous.Behavior`1.Execute(Automatonymous.BehaviorContext{`0})">
+            <summary>
+            Execute the activity with the given behavior context
+            </summary>
+            <param name="context">The behavior context</param>
+            <returns>An awaitable task</returns>
+        </member>
+        <member name="M:Automatonymous.Behavior`1.Execute``1(Automatonymous.BehaviorContext{`0,``0})">
+            <summary>
+            Execute the activity with the given behavior context
+            </summary>
+            <param name="context">The behavior context</param>
+            <returns>An awaitable task</returns>
+        </member>
+        <member name="M:Automatonymous.Behavior`1.Faulted``2(Automatonymous.BehaviorExceptionContext{`0,``0,``1})">
+            <summary>
+            The exception path through the behavior allows activities to catch and handle exceptions
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TException"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Behavior`1.Faulted``1(Automatonymous.BehaviorExceptionContext{`0,``0})">
+            <summary>
+            The exception path through the behavior allows activities to catch and handle exceptions
+            </summary>
+            <typeparam name="TException"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.Behavior`2">
+            <summary>
+            A behavior is a chain of activities invoked by a state
+            </summary>
+            <typeparam name="TInstance">The state type</typeparam>
+            <typeparam name="TData">The data type of the behavior</typeparam>
+        </member>
+        <member name="M:Automatonymous.Behavior`2.Execute(Automatonymous.BehaviorContext{`0,`1})">
+            <summary>
+            Execute the activity with the given behavior context
+            </summary>
+            <param name="context">The behavior context</param>
+            <returns>An awaitable task</returns>
+        </member>
+        <member name="M:Automatonymous.Behavior`2.Faulted``1(Automatonymous.BehaviorExceptionContext{`0,`1,``0})">
+            <summary>
+            The exception path through the behavior allows activities to catch and handle exceptions
+            </summary>
+            <typeparam name="TException"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.BehaviorContext`1">
+            <summary>
+            A behavior context is an event context delivered to a behavior, including the state instance
+            </summary>
+            <typeparam name="TInstance">The state instance type</typeparam>
+        </member>
+        <member name="M:Automatonymous.BehaviorContext`1.GetProxy(Automatonymous.Event)">
+            <summary>
+            Return a proxy of the current behavior context with the specified event
+            </summary>
+            <param name="event">The event for the new context</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.BehaviorContext`1.GetProxy``1(Automatonymous.Event{``0},``0)">
+            <summary>
+            Return a proxy of the current behavior context with the specified event and data
+            </summary>
+            <typeparam name="T">The data type</typeparam>
+            <param name="event">The event for the new context</param>
+            <param name="data">The data for the event</param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.BehaviorContext`2">
+            <summary>
+            A behavior context include an event context, along with the behavior for a state instance.
+            </summary>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <typeparam name="TData">The event type</typeparam>
+        </member>
+        <member name="T:Automatonymous.BehaviorExceptionContext`3">
+            <summary>
+            An exceptional behavior context
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TData"></typeparam>
+            <typeparam name="TException"></typeparam>
+        </member>
+        <member name="M:Automatonymous.BehaviorExceptionContext`3.GetProxy``1(Automatonymous.Event{``0},``0)">
+            <summary>
+            Return a proxy of the current behavior context with the specified event and data
+            </summary>
+            <typeparam name="T">The data type</typeparam>
+            <param name="event">The event for the new context</param>
+            <param name="data">The data for the event</param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.BehaviorExceptionContext`2">
+            <summary>
+            An exceptional behavior context
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TException"></typeparam>
+        </member>
+        <member name="M:Automatonymous.BehaviorExceptionContext`2.GetProxy``1(Automatonymous.Event{``0},``0)">
+            <summary>
+            Return a proxy of the current behavior context with the specified event and data
+            </summary>
+            <typeparam name="T">The data type</typeparam>
+            <param name="event">The event for the new context</param>
+            <param name="data">The data for the event</param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.Behaviors.DataBehavior`2">
+            <summary>
+            Splits apart the data from the behavior so it can be invoked properly.
+            </summary>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+        </member>
+        <member name="T:Automatonymous.Behaviors.LastBehavior`1">
+            <summary>
+            The last behavior either completes the last activity in the behavior or
+            throws the exception if a compensation is in progress
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+        </member>
+        <member name="T:Automatonymous.Behaviors.LastFaultedBehavior`1">
+            <summary>
+            In a catch, after the last activity, the fault is completed as handled. An activity should throw the 
+            exception if desired.
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+        </member>
+        <member name="M:Automatonymous.Binders.ActivityBinder`1.IsStateTransitionEvent(Automatonymous.State)">
+            <summary>
+            Returns True if the event is a state transition event (enter/leave/afterLeave/beforeEnter)
+            for the specified state.
+            </summary>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.ActivityBinder`1.Bind(Automatonymous.State{`0})">
+            <summary>
+            Binds the activity to the state, may also just ignore the event if it's an ignore event
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="M:Automatonymous.Binders.ActivityBinder`1.Bind(Automatonymous.Behaviors.BehaviorBuilder{`0})">
+            <summary>
+            Bind the activities to the builder
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:Automatonymous.Binders.CatchActivityBinder`2">
+            <summary>
+            Creates a compensation activity with the compensation behavior
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TException"></typeparam>
+        </member>
+        <member name="M:Automatonymous.Binders.EventActivityBinder`1.Catch``1(System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,``0},Automatonymous.Binders.ExceptionActivityBinder{`0,``0}})">
+            <summary>
+            Catch the exception of type T, and execute the compensation chain
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.EventActivityBinder`1.If(Automatonymous.StateMachineCondition{`0},System.Func{Automatonymous.Binders.EventActivityBinder{`0},Automatonymous.Binders.EventActivityBinder{`0}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.EventActivityBinder`1.IfAsync(Automatonymous.StateMachineAsyncCondition{`0},System.Func{Automatonymous.Binders.EventActivityBinder{`0},Automatonymous.Binders.EventActivityBinder{`0}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.EventActivityBinder`1.IfElse(Automatonymous.StateMachineCondition{`0},System.Func{Automatonymous.Binders.EventActivityBinder{`0},Automatonymous.Binders.EventActivityBinder{`0}},System.Func{Automatonymous.Binders.EventActivityBinder{`0},Automatonymous.Binders.EventActivityBinder{`0}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="thenActivityCallback"></param>
+            <param name="elseActivityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.EventActivityBinder`1.IfElseAsync(Automatonymous.StateMachineAsyncCondition{`0},System.Func{Automatonymous.Binders.EventActivityBinder{`0},Automatonymous.Binders.EventActivityBinder{`0}},System.Func{Automatonymous.Binders.EventActivityBinder{`0},Automatonymous.Binders.EventActivityBinder{`0}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="thenActivityCallback"></param>
+            <param name="elseActivityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.EventActivityBinder`2.Catch``1(System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1,``0},Automatonymous.Binders.ExceptionActivityBinder{`0,`1,``0}})">
+            <summary>
+            Catch the exception of type T, and execute the compensation chain
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.EventActivityBinder`2.If(Automatonymous.StateMachineCondition{`0,`1},System.Func{Automatonymous.Binders.EventActivityBinder{`0,`1},Automatonymous.Binders.EventActivityBinder{`0,`1}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.EventActivityBinder`2.IfAsync(Automatonymous.StateMachineAsyncCondition{`0,`1},System.Func{Automatonymous.Binders.EventActivityBinder{`0,`1},Automatonymous.Binders.EventActivityBinder{`0,`1}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.EventActivityBinder`2.IfElse(Automatonymous.StateMachineCondition{`0,`1},System.Func{Automatonymous.Binders.EventActivityBinder{`0,`1},Automatonymous.Binders.EventActivityBinder{`0,`1}},System.Func{Automatonymous.Binders.EventActivityBinder{`0,`1},Automatonymous.Binders.EventActivityBinder{`0,`1}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="thenActivityCallback"></param>
+            <param name="elseActivityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.EventActivityBinder`2.IfElseAsync(Automatonymous.StateMachineAsyncCondition{`0,`1},System.Func{Automatonymous.Binders.EventActivityBinder{`0,`1},Automatonymous.Binders.EventActivityBinder{`0,`1}},System.Func{Automatonymous.Binders.EventActivityBinder{`0,`1},Automatonymous.Binders.EventActivityBinder{`0,`1}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="thenActivityCallback"></param>
+            <param name="elseActivityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.ExceptionActivityBinder`2.Catch``1(System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,``0},Automatonymous.Binders.ExceptionActivityBinder{`0,``0}})">
+            <summary>
+            Catch an exception and execute the compensating activities
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.ExceptionActivityBinder`2.If(Automatonymous.StateMachineExceptionCondition{`0,`1},System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1},Automatonymous.Binders.ExceptionActivityBinder{`0,`1}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.ExceptionActivityBinder`2.IfAsync(Automatonymous.StateMachineAsyncExceptionCondition{`0,`1},System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1},Automatonymous.Binders.ExceptionActivityBinder{`0,`1}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.ExceptionActivityBinder`2.IfElse(Automatonymous.StateMachineExceptionCondition{`0,`1},System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1},Automatonymous.Binders.ExceptionActivityBinder{`0,`1}},System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1},Automatonymous.Binders.ExceptionActivityBinder{`0,`1}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="thenActivityCallback"></param>
+            <param name="elseActivityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.ExceptionActivityBinder`2.IfElseAsync(Automatonymous.StateMachineAsyncExceptionCondition{`0,`1},System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1},Automatonymous.Binders.ExceptionActivityBinder{`0,`1}},System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1},Automatonymous.Binders.ExceptionActivityBinder{`0,`1}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="thenActivityCallback"></param>
+            <param name="elseActivityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.ExceptionActivityBinder`3.Catch``1(System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1,``0},Automatonymous.Binders.ExceptionActivityBinder{`0,`1,``0}})">
+            <summary>
+            Catch an exception and execute the compensating activities
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.ExceptionActivityBinder`3.If(Automatonymous.StateMachineExceptionCondition{`0,`1,`2},System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1,`2},Automatonymous.Binders.ExceptionActivityBinder{`0,`1,`2}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.ExceptionActivityBinder`3.IfAsync(Automatonymous.StateMachineAsyncExceptionCondition{`0,`1,`2},System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1,`2},Automatonymous.Binders.ExceptionActivityBinder{`0,`1,`2}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="activityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.ExceptionActivityBinder`3.IfElse(Automatonymous.StateMachineExceptionCondition{`0,`1,`2},System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1,`2},Automatonymous.Binders.ExceptionActivityBinder{`0,`1,`2}},System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1,`2},Automatonymous.Binders.ExceptionActivityBinder{`0,`1,`2}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="thenActivityCallback"></param>
+            <param name="elseActivityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.Binders.ExceptionActivityBinder`3.IfElseAsync(Automatonymous.StateMachineAsyncExceptionCondition{`0,`1,`2},System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1,`2},Automatonymous.Binders.ExceptionActivityBinder{`0,`1,`2}},System.Func{Automatonymous.Binders.ExceptionActivityBinder{`0,`1,`2},Automatonymous.Binders.ExceptionActivityBinder{`0,`1,`2}})">
+            <summary>
+            Create a conditional branch of activities for processing
+            </summary>
+            <param name="condition"></param>
+            <param name="thenActivityCallback"></param>
+            <param name="elseActivityCallback"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.Binders.ExecuteActivityBinder`1">
+            <summary>
+            Routes event activities to an activities
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+        </member>
+        <member name="F:Automatonymous.CompositeEventOptions.IncludeInitial">
+            <summary>
+            Include the composite event in the initial state
+            </summary>
+        </member>
+        <member name="M:Automatonymous.EventContext`1.Raise(Automatonymous.Event)">
+            <summary>
+            Raise an event on the current instance, pushing the current event on the stack
+            </summary>
+            <param name="event">The event to raise</param>
+            <returns>An awaitable Task</returns>
+        </member>
+        <member name="M:Automatonymous.EventContext`1.Raise``1(Automatonymous.Event{``0},``0)">
+            <summary>
+            Raise an event on the current instance, pushing the current event on the stack
+            </summary>
+            <param name="event">The event to raise</param>
+            <param name="data">THe event data</param>
+            <returns>An awaitable Task</returns>
+        </member>
+        <member name="T:Automatonymous.EventContext`2">
+            <summary>
+            Encapsulates an event that was raised which includes data
+            </summary>
+            <typeparam name="TInstance">The state instance the event is targeting</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+        </member>
+        <member name="P:Automatonymous.EventContext`2.Data">
+            <summary>
+            The data from the event
+            </summary>
+        </member>
+        <member name="M:Automatonymous.EventObserver`1.PreExecute(Automatonymous.EventContext{`0})">
+            <summary>
+            Called before the event context is delivered to the activities
+            </summary>
+            <param name="context">The event context</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.EventObserver`1.PreExecute``1(Automatonymous.EventContext{`0,``0})">
+            <summary>
+            Called before the event context is delivered to the activities
+            </summary>
+            <typeparam name="T">The event data type</typeparam>
+            <param name="context">The event context</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.EventObserver`1.PostExecute(Automatonymous.EventContext{`0})">
+            <summary>
+            Called when the event has been processed by the activities
+            </summary>
+            <param name="context">The event context</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.EventObserver`1.PostExecute``1(Automatonymous.EventContext{`0,``0})">
+            <summary>
+            Called when the event has been processed by the activities
+            </summary>
+            <typeparam name="T">The event data type</typeparam>
+            <param name="context">The event context</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.EventObserver`1.ExecuteFault(Automatonymous.EventContext{`0},System.Exception)">
+            <summary>
+            Called when the activity execution faults and is not handled by the activities
+            </summary>
+            <param name="context">The event context</param>
+            <param name="exception">The exception that was thrown</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.EventObserver`1.ExecuteFault``1(Automatonymous.EventContext{`0,``0},System.Exception)">
+            <summary>
+            Called when the activity execution faults and is not handled by the activities
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="context">The event context</param>
+            <param name="exception">The exception that was thrown</param>
+            <returns></returns>
+        </member>
+        <member name="P:Automatonymous.InstanceContext`1.Instance">
+            <summary>
+            The state instance which is targeted by the event
+            </summary>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``2(``0,``1,Automatonymous.Event,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``2(``0,``1,System.Func{``0,Automatonymous.Event},System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``3(``0,``2,Automatonymous.Event{``1},``1,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``3(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``3(``0,``1,Automatonymous.Event,``2,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``3(``0,``1,System.Func{``0,Automatonymous.Event},``2,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``4(``0,``2,Automatonymous.Event{``1},``1,``3,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``4(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``4(``0,``1,Automatonymous.Event,``2,``3,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``4(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``5(``0,``2,Automatonymous.Event{``1},``1,``3,``4,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``5(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``5(``0,``1,Automatonymous.Event,``2,``3,``4,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``5(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``6(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``6(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``6(``0,``1,Automatonymous.Event,``2,``3,``4,``5,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``6(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``7(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``7(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``7(``0,``1,Automatonymous.Event,``2,``3,``4,``5,``6,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``7(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,``6,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``8(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,``7,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``8(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,``7,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``8(``0,``1,Automatonymous.Event,``2,``3,``4,``5,``6,``7,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``8(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,``6,``7,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``9(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,``7,``8,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``9(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,``7,``8,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``9(``0,``1,Automatonymous.Event,``2,``3,``4,``5,``6,``7,``8,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``9(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,``6,``7,``8,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``10(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,``7,``8,``9,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``10(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,``7,``8,``9,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``10(``0,``1,Automatonymous.Event,``2,``3,``4,``5,``6,``7,``8,``9,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``10(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,``6,``7,``8,``9,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``11(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,``7,``8,``9,``10,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``11(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,``7,``8,``9,``10,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``11(``0,``1,Automatonymous.Event,``2,``3,``4,``5,``6,``7,``8,``9,``10,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``11(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,``6,``7,``8,``9,``10,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``12(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``12(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``12(``0,``1,Automatonymous.Event,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``12(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``13(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``13(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``13(``0,``1,Automatonymous.Event,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``13(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``14(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``14(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``14(``0,``1,Automatonymous.Event,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``14(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``15(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``15(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``15(``0,``1,Automatonymous.Event,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``15(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``16(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``16(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``16(``0,``1,Automatonymous.Event,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="context14">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``16(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="context14">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``17(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="context14">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``17(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="context14">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``17(``0,``1,Automatonymous.Event,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="context14">An additional context added to the event context</param>
+            <param name="context15">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``17(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="context14">An additional context added to the event context</param>
+            <param name="context15">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``18(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16,``17,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="context14">An additional context added to the event context</param>
+            <param name="context15">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``18(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16,``17,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="context14">An additional context added to the event context</param>
+            <param name="context15">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``18(``0,``1,Automatonymous.Event,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16,``17,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="context14">An additional context added to the event context</param>
+            <param name="context15">An additional context added to the event context</param>
+            <param name="context16">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``18(``0,``1,System.Func{``0,Automatonymous.Event},``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16,``17,System.Threading.CancellationToken)">
+            <summary>
+            Raise a simple event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="context14">An additional context added to the event context</param>
+            <param name="context15">An additional context added to the event context</param>
+            <param name="context16">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``19(``0,``2,Automatonymous.Event{``1},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16,``17,``18,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="event">The event to raise</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="context14">An additional context added to the event context</param>
+            <param name="context15">An additional context added to the event context</param>
+            <param name="context16">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.RaiseEventExtensions.RaiseEvent``19(``0,``2,System.Func{``0,Automatonymous.Event{``1}},``1,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16,``17,``18,System.Threading.CancellationToken)">
+            <summary>
+            Raise a data event on the state machine
+            </summary>
+            <typeparam name="T">The state machine type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <typeparam name="TInstance">The instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state machine instance</param>
+            <param name="eventSelector">Selector to the event on the state machine</param>
+            <param name="data">The event data</param>
+            <param name="context1">An additional context added to the event context</param>
+            <param name="context2">An additional context added to the event context</param>
+            <param name="context3">An additional context added to the event context</param>
+            <param name="context4">An additional context added to the event context</param>
+            <param name="context5">An additional context added to the event context</param>
+            <param name="context6">An additional context added to the event context</param>
+            <param name="context7">An additional context added to the event context</param>
+            <param name="context8">An additional context added to the event context</param>
+            <param name="context9">An additional context added to the event context</param>
+            <param name="context10">An additional context added to the event context</param>
+            <param name="context11">An additional context added to the event context</param>
+            <param name="context12">An additional context added to the event context</param>
+            <param name="context13">An additional context added to the event context</param>
+            <param name="context14">An additional context added to the event context</param>
+            <param name="context15">An additional context added to the event context</param>
+            <param name="context16">An additional context added to the event context</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="P:Automatonymous.State.Enter">
+            <summary>
+            Raised when the state is entered
+            </summary>
+        </member>
+        <member name="P:Automatonymous.State.Leave">
+            <summary>
+            Raised when the state is about to be left
+            </summary>
+        </member>
+        <member name="P:Automatonymous.State.BeforeEnter">
+            <summary>
+            Raised just before the state is about to change to a new state
+            </summary>
+        </member>
+        <member name="P:Automatonymous.State.AfterLeave">
+            <summary>
+            Raised just after the state has been left and a new state is selected
+            </summary>
+        </member>
+        <member name="T:Automatonymous.State`1">
+            <summary>
+            A state within a state machine that can be targeted with events
+            </summary>
+            <typeparam name="TInstance">The instance type to which the state applies</typeparam>
+        </member>
+        <member name="P:Automatonymous.State`1.SuperState">
+            <summary>
+            Returns the superState of the state, if there is one
+            </summary>
+        </member>
+        <member name="M:Automatonymous.State`1.Raise``1(Automatonymous.EventContext{`0,``0})">
+            <summary>
+            Raise an event to the state, passing the instance
+            </summary>
+            <typeparam name="T">The event data type</typeparam>
+            <param name="context">The event context</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.State`1.Bind(Automatonymous.Event,Automatonymous.Activity{`0})">
+            <summary>
+            Bind an activity to an event
+            </summary>
+            <param name="event"></param>
+            <param name="activity"></param>
+        </member>
+        <member name="M:Automatonymous.State`1.Ignore(Automatonymous.Event)">
+            <summary>
+            Ignore the specified event in this state. Prevents an exception from being thrown if
+            the event is raised during this state.
+            </summary>
+            <param name="event"></param>
+        </member>
+        <member name="M:Automatonymous.State`1.Ignore``1(Automatonymous.Event{``0},Automatonymous.StateMachineEventFilter{`0,``0})">
+            <summary>
+            Ignore the specified event in this state if the filter condition passed. Prevents exceptions
+            from being thrown if the event is raised during this state.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="event"></param>
+            <param name="filter"></param>
+        </member>
+        <member name="M:Automatonymous.State`1.AddSubstate(Automatonymous.State{`0})">
+            <summary>
+            Adds a substate to the state
+            </summary>
+            <param name="subState"></param>
+        </member>
+        <member name="M:Automatonymous.State`1.HasState(Automatonymous.State{`0})">
+            <summary>
+            True if the specified state is included in the state
+            </summary>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.State`1.IsStateOf(Automatonymous.State{`0})">
+            <summary>
+            True if the specified state is a substate of the current state
+            </summary>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.StateAccessor`1.GetStateExpression(Automatonymous.State[])">
+            <summary>
+            Converts a state expression to the instance current state property type.
+            </summary>
+            <param name="states"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.StateMachine">
+            <summary>
+            A state machine definition
+            </summary>
+        </member>
+        <member name="P:Automatonymous.StateMachine.Name">
+            <summary>
+            The name of the state machine (defaults to the state machine type name)
+            </summary>
+        </member>
+        <member name="P:Automatonymous.StateMachine.Events">
+            <summary>
+            The events defined in the state machine
+            </summary>
+        </member>
+        <member name="P:Automatonymous.StateMachine.States">
+            <summary>
+            The states defined in the state machine
+            </summary>
+        </member>
+        <member name="P:Automatonymous.StateMachine.InstanceType">
+            <summary>
+            The instance type associated with the state machine
+            </summary>
+        </member>
+        <member name="P:Automatonymous.StateMachine.Initial">
+            <summary>
+            The initial state of a new state machine instance
+            </summary>
+        </member>
+        <member name="P:Automatonymous.StateMachine.Final">
+            <summary>
+            The final state of a state machine instance
+            </summary>
+        </member>
+        <member name="M:Automatonymous.StateMachine.GetEvent(System.String)">
+            <summary>
+            Returns the event requested
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.StateMachine.GetState(System.String)">
+            <summary>
+            Returns the state requested
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.StateMachine.NextEvents(Automatonymous.State)">
+            <summary>
+            The valid events that can be raised during the specified state
+            </summary>
+            <param name="state">The state to query</param>
+            <returns>An enumeration of valid events</returns>
+        </member>
+        <member name="T:Automatonymous.StateMachine`1">
+            <summary>
+            A defined state machine that operations against the specified instance
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+        </member>
+        <member name="P:Automatonymous.StateMachine`1.Accessor">
+            <summary>
+            Exposes the current state on the given instance
+            </summary>
+        </member>
+        <member name="M:Automatonymous.StateMachine`1.GetState(System.String)">
+            <summary>
+            Returns the state requested bound to the instance
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.StateMachine`1.RaiseEvent(Automatonymous.EventContext{`0})">
+            <summary>
+            Raise a simple event on the state machine instance asynchronously
+            </summary>
+            <param name="context"></param>
+            <returns>Task for the instance once completed</returns>
+        </member>
+        <member name="M:Automatonymous.StateMachine`1.RaiseEvent``1(Automatonymous.EventContext{`0,``0})">
+            <summary>
+            Raise a data event on the state machine instance
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:Automatonymous.StateMachineAsyncCondition`2">
+            <summary>
+            Filters activities based on the async conditional statement
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.StateMachineAsyncCondition`1">
+            <summary>
+            Filters activities based on the async conditional statement
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.StateMachineAsyncExceptionCondition`3">
+            <summary>
+            Filters activities based on the conditional statement
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TData"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.StateMachineAsyncExceptionCondition`2">
+            <summary>
+            Filters activities based on the conditional statement
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.StateMachineCondition`1">
+            <summary>
+            Filters activities based on the conditional statement
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.StateMachineCondition`2">
+            <summary>
+            Filters activities based on the conditional statement
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TData"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.StateMachineEventFilter`1">
+            <summary>
+            Delegate for an event filter, which can examine an event and return true if the filter matches the event instance
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <param name="context">The event context</param>
+            <returns>True if the filter matches the data, otherwise false.</returns>
+        </member>
+        <member name="T:Automatonymous.StateMachineEventFilter`2">
+            <summary>
+            Delegate for an event filter, which can examine an event and return true if the filter matches the event data
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="context">The event context</param>
+            <returns>True if the filter matches the data, otherwise false.</returns>
+        </member>
+        <member name="T:Automatonymous.StateMachineExceptionCondition`3">
+            <summary>
+            Filters activities based on the conditional statement
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TData"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.StateMachineExceptionCondition`2">
+            <summary>
+            Filters activities based on the conditional statement
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.StateMachineExtensions.TransitionToState``1(Automatonymous.StateMachine{``0},``0,Automatonymous.State,System.Threading.CancellationToken)">
+            <summary>
+                Transition a state machine instance to a specific state, producing any events related
+                to the transaction such as leaving the previous state and entering the target state
+            </summary>
+            <typeparam name="TInstance">The state instance type</typeparam>
+            <param name="machine">The state machine</param>
+            <param name="instance">The state instance</param>
+            <param name="state">The target state</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Automatonymous.StateObserver`1.StateChanged(Automatonymous.InstanceContext{`0},Automatonymous.State,Automatonymous.State)">
+            <summary>
+            Invoked prior to changing the state of the state machine
+            </summary>
+            <param name="context">The instance context of the state machine</param>
+            <param name="currentState">The current state (after the change)</param>
+            <param name="previousState">The previous state (before the change)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.Then``1(Automatonymous.Binders.EventActivityBinder{``0},System.Action{Automatonymous.BehaviorContext{``0}})">
+            <summary>
+            Adds a synchronous delegate activity to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="action">The synchronous delegate</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.Then``2(Automatonymous.Binders.ExceptionActivityBinder{``0,``1},System.Action{Automatonymous.BehaviorExceptionContext{``0,``1}})">
+            <summary>
+            Adds a synchronous delegate activity to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <typeparam name="TException">The exception type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="action">The synchronous delegate</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.ThenAsync``2(Automatonymous.Binders.ExceptionActivityBinder{``0,``1},System.Func{Automatonymous.BehaviorExceptionContext{``0,``1},System.Threading.Tasks.Task})">
+            <summary>
+            Adds a asynchronous delegate activity to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <typeparam name="TException">The exception type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="asyncAction">The asynchronous delegate</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.ThenAsync``1(Automatonymous.Binders.EventActivityBinder{``0},System.Func{Automatonymous.BehaviorContext{``0},System.Threading.Tasks.Task})">
+            <summary>
+            Adds an asynchronous delegate activity to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="action">The asynchronous delegate</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.Then``2(Automatonymous.Binders.EventActivityBinder{``0,``1},System.Action{Automatonymous.BehaviorContext{``0,``1}})">
+            <summary>
+            Adds a synchronous delegate activity to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="action">The synchronous delegate</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.Then``3(Automatonymous.Binders.ExceptionActivityBinder{``0,``1,``2},System.Action{Automatonymous.BehaviorExceptionContext{``0,``1,``2}})">
+            <summary>
+            Adds a synchronous delegate activity to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <typeparam name="TException">The exception type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="action">The synchronous delegate</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.ThenAsync``3(Automatonymous.Binders.ExceptionActivityBinder{``0,``1,``2},System.Func{Automatonymous.BehaviorExceptionContext{``0,``1,``2},System.Threading.Tasks.Task})">
+            <summary>
+            Adds a asynchronous delegate activity to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <typeparam name="TException">The exception type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="asyncAction">The asynchronous delegate</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.ThenAsync``2(Automatonymous.Binders.EventActivityBinder{``0,``1},System.Func{Automatonymous.BehaviorContext{``0,``1},System.Threading.Tasks.Task})">
+            <summary>
+            Adds an asynchronous delegate activity to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="action">The asynchronous delegate</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.Execute``1(Automatonymous.Binders.EventActivityBinder{``0},System.Func{Automatonymous.BehaviorContext{``0},Automatonymous.Activity{``0}})">
+            <summary>
+            Add an activity execution to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="activityFactory">The factory method which returns the activity to execute</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.Execute``1(Automatonymous.Binders.EventActivityBinder{``0},Automatonymous.Activity{``0})">
+            <summary>
+            Add an activity execution to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="activity">An existing activity</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.ExecuteAsync``1(Automatonymous.Binders.EventActivityBinder{``0},System.Func{Automatonymous.BehaviorContext{``0},System.Threading.Tasks.Task{Automatonymous.Activity{``0}}})">
+            <summary>
+            Add an activity execution to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="activityFactory">The factory method which returns the activity to execute</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.Execute``2(Automatonymous.Binders.EventActivityBinder{``0,``1},System.Func{Automatonymous.BehaviorContext{``0,``1},Automatonymous.Activity{``0,``1}})">
+            <summary>
+            Add an activity execution to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="activityFactory">The factory method which returns the activity to execute</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.ExecuteAsync``2(Automatonymous.Binders.EventActivityBinder{``0,``1},System.Func{Automatonymous.BehaviorContext{``0,``1},System.Threading.Tasks.Task{Automatonymous.Activity{``0,``1}}})">
+            <summary>
+            Add an activity execution to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="activityFactory">The factory method which returns the activity to execute</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.Execute``2(Automatonymous.Binders.EventActivityBinder{``0,``1},System.Func{Automatonymous.BehaviorContext{``0,``1},Automatonymous.Activity{``0}})">
+            <summary>
+            Add an activity execution to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="activityFactory">The factory method which returns the activity to execute</param>
+        </member>
+        <member name="M:Automatonymous.ThenExtensions.ExecuteAsync``2(Automatonymous.Binders.EventActivityBinder{``0,``1},System.Func{Automatonymous.BehaviorContext{``0,``1},System.Threading.Tasks.Task{Automatonymous.Activity{``0}}})">
+            <summary>
+            Add an activity execution to the event's behavior
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <typeparam name="TData">The event data type</typeparam>
+            <param name="binder">The event binder</param>
+            <param name="activityFactory">The factory method which returns the activity to execute</param>
+        </member>
+        <member name="M:Automatonymous.TransitionExtensions.TransitionTo``1(Automatonymous.Binders.EventActivityBinder{``0},Automatonymous.State)">
+            <summary>
+            Transition the state machine to the specified state
+            </summary>
+        </member>
+        <member name="M:Automatonymous.TransitionExtensions.TransitionTo``2(Automatonymous.Binders.ExceptionActivityBinder{``0,``1},Automatonymous.State)">
+            <summary>
+            Transition the state machine to the specified state in response to an exception
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TException"></typeparam>
+            <param name="source"></param>
+            <param name="toState"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.TransitionExtensions.TransitionTo``2(Automatonymous.Binders.EventActivityBinder{``0,``1},Automatonymous.State)">
+            <summary>
+            Transition the state machine to the specified state
+            </summary>
+        </member>
+        <member name="M:Automatonymous.TransitionExtensions.TransitionTo``3(Automatonymous.Binders.ExceptionActivityBinder{``0,``1,``2},Automatonymous.State)">
+            <summary>
+            Transition the state machine to the specified state in response to an exception
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+            <typeparam name="TException"></typeparam>
+            <typeparam name="TData"></typeparam>
+            <param name="source"></param>
+            <param name="toState"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Automatonymous.TransitionExtensions.Finalize``2(Automatonymous.Binders.EventActivityBinder{``0,``1})">
+            <summary>
+            Transition the state machine to the Final state
+            </summary>
+        </member>
+        <member name="M:Automatonymous.TransitionExtensions.Finalize``1(Automatonymous.Binders.EventActivityBinder{``0})">
+            <summary>
+            Transition the state machine to the Final state
+            </summary>
+        </member>
+        <member name="M:Automatonymous.TransitionExtensions.Finalize``3(Automatonymous.Binders.ExceptionActivityBinder{``0,``1,``2})">
+            <summary>
+            Transition the state machine to the Final state
+            </summary>
+        </member>
+        <member name="M:Automatonymous.TransitionExtensions.Finalize``2(Automatonymous.Binders.ExceptionActivityBinder{``0,``1})">
+            <summary>
+            Transition the state machine to the Final state
+            </summary>
+        </member>
+        <member name="T:Automatonymous.UnhandledEventCallback`1">
+            <summary>
+            Callback for an unhandled event in the state machine
+            </summary>
+            <typeparam name="TInstance">The state machine instance type</typeparam>
+            <param name="context">The event context</param>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.UnhandledEventContext`1">
+            <summary>
+            The context of an unhandled event in the state machine
+            </summary>
+            <typeparam name="TInstance"></typeparam>
+        </member>
+        <member name="P:Automatonymous.UnhandledEventContext`1.CurrentState">
+            <summary>
+            The current state of the state machine
+            </summary>
+        </member>
+        <member name="M:Automatonymous.UnhandledEventContext`1.Ignore">
+            <summary>
+            Returns a Task that ignores the unhandled event
+            </summary>
+        </member>
+        <member name="M:Automatonymous.UnhandledEventContext`1.Throw">
+            <summary>
+            Returns a thrown exception task for the unhandled event
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Automatonymous.Visitable">
+            <summary>
+            Used to visit the state machine structure, so it can be displayed, etc.
+            </summary>
+        </member>
+        <member name="M:Automatonymous.Visitable.Accept(Automatonymous.StateMachineVisitor)">
+            <summary>
+            A visitable site can accept the visitor and pass control to internal elements
+            </summary>
+            <param name="visitor"></param>
+        </member>
+    </members>
+</doc>
