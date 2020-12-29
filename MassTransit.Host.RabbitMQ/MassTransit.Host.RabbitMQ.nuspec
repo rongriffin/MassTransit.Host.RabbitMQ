@@ -2,29 +2,29 @@
 <package >
 	<metadata>
 		<id>MassTransit.Host.RabbitMQ</id>
-		<version>4.0.0</version>
+		<version>4.0.2</version>
 		<title>MassTransit.Host.RabbitMQ</title>
 		<authors>Ron Griffin</authors>
 		<owners>rongriffin@gmail.com</owners>
 		<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Service Bus Host for Mass Transit services using RabbitMQ</description>
-		<releaseNotes>Upgrade to MassTransit v7.  Support other ports and AMQPS.</releaseNotes>
+		<releaseNotes>Upgrade to MassTransit v7.1.1.  Support other ports and AMQPS.</releaseNotes>
 		<projectUrl>https://github.com/rongriffin/MassTransit.Host.RabbitMQ</projectUrl>
 		<copyright>Copyright 2020</copyright>
 		<tags>MassTransit host RabbitMQ</tags>
 		<dependencies>
-      <dependency id="Automatonymous" version="5.0.2"/>
+      <dependency id="Automatonymous" version="5.1.0"/>
       <dependency id="Castle.Core" version="4.4.1"/>
       <dependency id="Castle.Windsor" version="5.1.1"/>
       <dependency id="GreenPipes" version="4.0.0"/>
-      <dependency id="MassTransit" version="7.0.7"/>
-      <dependency id="MassTransit.CastleWindsor" version="7.0.7"/>
-      <dependency id="MassTransit.RabbitMQ" version="7.0.7"/>
+      <dependency id="MassTransit" version="7.1.1"/>
+      <dependency id="MassTransit.CastleWindsor" version="7.1.1"/>
+      <dependency id="MassTransit.RabbitMQ" version="7.1.1"/>
       <dependency id="Microsoft.Bcl.AsyncInterfaces" version="5.0.0"/>
       <dependency id="Microsoft.Diagnostics.Tracing.EventSource.Redist" version="5.0.0"/>
       <dependency id="Microsoft.Extensions.Logging.Abstractions" version="5.0.0"/>
-      <dependency id="NewId" version="3.0.2"/>
+      <dependency id="NewId" version="3.0.3"/>
       <dependency id="Newtonsoft.Json" version="12.0.3"/>
       <dependency id="Newtonsoft.Json.Bson" version="1.0.2"/>
       <dependency id="NLog" version="4.7.6"/>

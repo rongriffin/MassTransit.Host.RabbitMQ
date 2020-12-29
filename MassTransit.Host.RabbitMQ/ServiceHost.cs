@@ -14,6 +14,7 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using GreenPipes;
 using MassTransit.Host.RabbitMQ.Configuration;
 using NLog;
 using System;
@@ -51,7 +52,9 @@ namespace MassTransit.Host.RabbitMQ
 				var busConfig = ServiceBusConfig.LoadFromConfig();
 
 				// Find all consumers in the install directory
-				var container = new WindsorContainer().Install(FromAssembly.This());				
+				var container = new WindsorContainer().Install(FromAssembly.This());
+				RegisterTypes(container);
+
 				container.AddMassTransit(c =>
 				{
 					c.AddConsumersFromContainer(container);
@@ -66,6 +69,7 @@ namespace MassTransit.Host.RabbitMQ
 						});
 						
 						cfg.ReceiveEndpoint(busConfig.QueueName, endpoint => {
+							endpoint.UseMessageRetry(r => r.Immediate(5));
 							endpoint.ConfigureConsumers(context);							
 						});
 						Logger.Trace($"Connecting to RabbitMQ queue {busConfig.QueueName}");
@@ -87,6 +91,19 @@ namespace MassTransit.Host.RabbitMQ
 		public void Stop()
 		{
 			_bus?.Stop();
+		}
+
+
+		internal static void RegisterTypes(IWindsorContainer container)
+		{
+			container
+				.Register(Types
+					.FromAssemblyInDirectory(new AssemblyFilter(AssemblyDirectory))
+					.BasedOn<IConsumer>()
+					.Unless(t => t.Namespace != null && t.Namespace.StartsWith("MassTransit", StringComparison.OrdinalIgnoreCase)));
+
+			LogRegisteredSubscribers(container);
+
 		}
 
 		internal static void LogRegisteredSubscribers(IWindsorContainer container)

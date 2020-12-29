@@ -1410,13 +1410,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MassTransit.RabbitMqTransport.Transport.RabbitMqReceiveTransport.Start">
-            <summary>
-            Start the receive transport, returning a Task that can be awaited to signal the transport has
-            completely shutdown once the cancellation token is cancelled.
-            </summary>
-            <returns>A task that is completed once the transport is shut down</returns>
-        </member>
         <member name="M:MassTransit.DelayedExchangeSchedulerExtensions.UseDelayedExchangeMessageScheduler(MassTransit.IBusFactoryConfigurator)">
             <summary>
             Uses the RabbitMQ delayed-exchange plug-in for message scheduling.
@@ -1556,6 +1549,14 @@
             use the ScheduleSend extensions on ConsumeContext.
             </summary>
             <param name="bus"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MassTransit.RabbitMqMessageSchedulerExtensions.CreateRabbitMqMessageScheduler(MassTransit.ISendEndpointProvider,MassTransit.Topology.IBusTopology)">
+            <summary>
+            Create a message scheduler that uses the RabbitMQ Delayed Exchange plug-in to schedule messages.
+            NOTE that this should only be used to schedule messages outside of a message consumer. Consumers should
+            use the ScheduleSend extensions on ConsumeContext.
+            </summary>
             <returns></returns>
         </member>
         <member name="M:MassTransit.RabbitMqMessageSchedulerExtensions.AddRabbitMqMessageScheduler(MassTransit.IRegistrationConfigurator)">
