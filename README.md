@@ -15,7 +15,7 @@ A service host process for MassTransit consumer services using RabbitMQ for tran
 **Connection string format**
 
 ```
-endpoint=rabbitmq://my-message-broker.mycompany.com; userid=rmquser; password=p@ssw0rd; queueName=my_queue;vhost=my_vhost;port=5671;
+endpoint=my-message-broker.mycompany.com; userid=rmquser; password=p@ssw0rd; queueName=my_queue;vhost=my_vhost;port=5671;
 ```
 
 endpoint - The host name for the RabbitMQ cluster.
